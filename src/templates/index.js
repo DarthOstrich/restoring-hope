@@ -127,7 +127,7 @@ const Index = ({ data, pageContext }) => {
 export const query = graphql`
   query {
     allContentfulAsset(
-      filter: { file: { fileName: { eq: "daisy-through-mud.jpg" } } }
+      filter: { id: { eq: "13794f27-4026-5663-8881-2ffc7f99046a" } }
     ) {
       nodes {
         title
