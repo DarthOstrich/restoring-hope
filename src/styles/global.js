@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
+import theme from './theme'
+const { responsive, colors, sizes } = theme
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -150,6 +152,14 @@ const GlobalStyle = createGlobalStyle`
 	}
 	blockquote {
 		margin-bottom: 1rem;
+	}
+	a {
+		font-weight: bold;
+		color: ${colors.highlight}
+    transition: color 0.3s linear;
+		&:hover {
+			color: ${colors.highlightDark}
+		}
 	}
 
 `

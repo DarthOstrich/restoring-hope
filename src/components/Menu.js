@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useRef, useLayoutEffect } from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
+import theme from '../styles/theme'
 
 const Header = styled.header`
 	background: transparent;
@@ -111,42 +112,70 @@ const StyledMenu = styled.nav`
   justify-content: center;
   background: ${props => props.theme.colors.secondary};
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
-  /* height: 100vh; */
   text-align: left;
   padding: 2rem;
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
   transition: transform 0.3s ease-in-out;
 
-  @media (max-width: 576px) {
-    width: 100%;
+  li {
+    margin-bottom: 1rem;
   }
 
   a {
-    font-size: 2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.8rem;
     text-transform: uppercase;
-    padding: 2rem 0;
-    font-weight: bold;
-    letter-spacing: 0.5rem;
-    color: #0d0c1d;
+    /* color: ${props => props.theme.colors.black}; */
     text-decoration: none;
-    transition: color 0.3s linear;
-
-    @media (max-width: 576px) {
-      font-size: 1.5rem;
-      text-align: center;
-    }
-
     &:hover {
-      color: #343078;
+      font-weight: bold;
     }
-  }
+	}
+
+	@media (min-width: 426px) {
+		flex-direction: row;
+		ul {
+
+		text-align: right;
+	}
+		li {
+			display: inline;
+		}
+	}
+  /* height: 100vh; */
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+
+  /* @media (max-width: 576px) { */
+  /*   width: 100%; */
+  /* } */
+
+  /* a { */
+  /*   font-size: 2rem; */
+  /*   text-transform: uppercase; */
+  /*   padding: 2rem 0; */
+  /*   font-weight: bold; */
+  /*   letter-spacing: 0.5rem; */
+  /*   color: #0d0c1d; */
+  /*   text-decoration: none; */
+  /*   transition: color 0.3s linear; */
+  /*  */
+  /*   @media (max-width: 576px) { */
+  /*     font-size: 1.5rem; */
+  /*     text-align: center; */
+  /*   } */
+  /*  */
+  /*   &:hover { */
+  /*     color: #343078; */
+  /*   } */
+  /* } */
 `
 
 const NavMenu = ({ open }) => {
+  const isMobile = window.innerWidth < 426
   return (
     <StyledMenu open={open}>
+      {!isMobile && <span>Logo</span>}
       <ul>
         <li>
           <Link to="/about/" activeStyle={activeLinkStyle}>
@@ -171,18 +200,56 @@ const BurgerWrapper = styled.div`
   z-index: 100000000;
   width: 100%;
   max-width: ${props => props.theme.sizes.maxWidth};
+  transition: background 0.3s ease-in-out;
+  background: ${props =>
+    props.fillNavBackground ? props.theme.colors.secondary : 'transparent'};
 `
 
 const Menu = () => {
+  // check to see if we are in a browser
+  const isBrowser = typeof window !== `undefined`
+  // const { small, medium, large } = theme.responsive
+  const isMobile = window.innerWidth < 426
   const [open, setOpen] = React.useState(false)
+  const [fillNavBackground, setFillNavBackground] = React.useState(false)
+
+  function getScrollPosition() {
+    if (!isBrowser) return { x: 0, y: 0 }
+
+    return { x: window.scrollX, y: window.scrollY }
+
+    // const target = element ? element.current : document.body
+    // const position = target.getBoundingClientRect()
+
+    // return useWindow
+    //   ? { x: window.scrollX, y: window.scrollY }
+    //   : { x: position.left, y: position.top }
+  }
+
+  function handleScroll() {
+    const position = getScrollPosition()
+    if (position.y > 100) {
+      setFillNavBackground(true)
+    } else if (position.y <= 100) {
+      setFillNavBackground(false)
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll)
+
   return (
     <Header>
-      <BurgerWrapper>
-        <Link to="/" activeStyle={activeLinkStyle}>
-          Logo
-        </Link>
-        <Burger open={open} setOpen={setOpen} />
-      </BurgerWrapper>
+      {isMobile && (
+        <BurgerWrapper
+          fillNavBackground={fillNavBackground}
+          setFillNavBackground={setFillNavBackground}
+        >
+          <Link to="/" activeStyle={activeLinkStyle}>
+            Logo
+          </Link>
+          <Burger open={open} setOpen={setOpen} />
+        </BurgerWrapper>
+      )}
       <NavMenu open={open} setOpen={setOpen} />
     </Header>
   )
