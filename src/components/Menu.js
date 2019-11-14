@@ -187,6 +187,11 @@ const NavMenu = ({ open }) => {
             Contact
           </Link>
         </li>
+        <li>
+          <Link to="/resources/" activeStyle={activeLinkStyle}>
+            Community Resources
+          </Link>
+        </li>
       </ul>
     </StyledMenu>
   )
