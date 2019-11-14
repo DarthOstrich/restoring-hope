@@ -22,7 +22,6 @@ const Index = ({ data, pageContext }) => {
   // const { currentPage } = pageContext
   // const isFirstPage = currentPage === 1
   const heroImage = data.allContentfulAsset.nodes[0]
-
   const groupList = [
     'Trauma Education',
     'Trauma Process Group',
@@ -127,17 +126,14 @@ const Index = ({ data, pageContext }) => {
 export const query = graphql`
   query {
     allContentfulAsset(
-      filter: { id: { eq: "13794f27-4026-5663-8881-2ffc7f99046a" } }
+      filter: { contentful_id: { eq: "5UmikbgYwmuH0aWuFN3Zhh" } }
     ) {
       nodes {
         title
         fluid(maxWidth: 1800) {
-          sizes
-          aspectRatio
-          src
-          srcSet
+          ...GatsbyContentfulFluid_withWebp_noBase64
         }
-        ogImg: resize {
+        ogImg: resize(width: 1800) {
           src
           width
           height
