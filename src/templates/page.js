@@ -19,10 +19,8 @@ const PageTemplate = ({ data }) => {
       </Helmet>
       <SEO pagePath={slug} postNode={postNode} pageSEO />
 
-      <Container>
-        <Hero title={title} image={heroImage} height={'50vh'} />
-        {body && <PageBody body={body} />}
-      </Container>
+      <Hero title={title} image={heroImage} height={'50vh'} />
+      <Container>{body && <PageBody body={body} />}</Container>
     </Layout>
   )
 }
@@ -35,6 +33,11 @@ export const query = graphql`
       metaDescription {
         internal {
           content
+        }
+      }
+      body {
+        childMarkdownRemark {
+          html
         }
       }
       heroImage {
