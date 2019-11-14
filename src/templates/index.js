@@ -21,6 +21,7 @@ const Index = ({ data, pageContext }) => {
   // const featuredPost = posts[0].node
   // const { currentPage } = pageContext
   // const isFirstPage = currentPage === 1
+  const heroImage = data.allContentfulAsset.nodes[0]
 
   const groupList = [
     'Trauma Education',
@@ -36,39 +37,63 @@ const Index = ({ data, pageContext }) => {
     'Anger Management',
   ]
 
+  const HomeH1 = styled.h1`
+    text-align: center;
+  `
+
   return (
     <Layout>
       <SEO />
       <Helmet>
         <title>{config.siteTitle}</title>
       </Helmet>
+      <HomeHero
+        image={heroImage}
+        height="50vh"
+        quote="Empowering wholehearted living by cultivating and embracing hope."
+      ></HomeHero>
       <Container>
-        <HomeHero>Words</HomeHero>
         <Article direction="column">
-          <h1>Services</h1>
+          <HomeH1>Services</HomeH1>
           <ul>
-            <li>Individual Therapy</li>
-            <li>Group Therapy</li>
-            <li>Co-Occuring Disorder Treatment</li>
-            <li>Trauma Informed Treatment</li>
+            <li>
+              <h2>Individual Therapy</h2>
+            </li>
+            <li>
+              <h2>Group Therapy</h2>
+            </li>
+            <li>
+              <h2>Co-Occuring Disorder Treatment</h2>
+            </li>
+            <li>
+              <h2>Trauma Informed Treatment</h2>
+            </li>
           </ul>
         </Article>
         <Article direction="column">
-          <h1>Groups</h1>
+          <HomeH1>Groups</HomeH1>
           <ul>
             {groupList.map(group => (
-              <li>{group}</li>
+              <li key={group}>
+                <h2>{group}</h2>
+              </li>
             ))}
           </ul>
         </Article>
         <Article direction="column">
-          <h1>Where We Are</h1>
+          <HomeH1>Where We Are</HomeH1>
           <h2>Office Hours</h2>
-          <p>9:00 AM &mdash; 5:00 PM</p>
+          <h3>
+            <p>9:00 AM &mdash; 5:00 PM</p>
+          </h3>
           <h2>Address</h2>
           <address>
-            <p>850 E Franklin Rd. Ste 405</p>
-            <p>Meridian, Idaho 83642</p>
+            <h3>
+              <p>850 E Franklin Rd. Ste 405</p>
+            </h3>
+            <h3>
+              <p>Meridian, Idaho 83642</p>
+            </h3>
           </address>
         </Article>
       </Container>
@@ -100,35 +125,57 @@ const Index = ({ data, pageContext }) => {
 }
 
 export const query = graphql`
-  query($skip: Int!, $limit: Int!) {
-    allContentfulPost(
-      sort: { fields: [publishDate], order: DESC }
-      limit: $limit
-      skip: $skip
+  query {
+    allContentfulAsset(
+      filter: { file: { fileName: { eq: "daisy-through-mud.jpg" } } }
     ) {
-      edges {
-        node {
-          title
-          id
-          slug
-          publishDate(formatString: "MMMM DD, YYYY")
-          heroImage {
-            title
-            fluid(maxWidth: 1800) {
-              ...GatsbyContentfulFluid_withWebp_noBase64
-            }
-          }
-          body {
-            childMarkdownRemark {
-              timeToRead
-              html
-              excerpt(pruneLength: 80)
-            }
-          }
+      nodes {
+        title
+        fluid(maxWidth: 1800) {
+          sizes
+          aspectRatio
+          src
+          srcSet
+        }
+        ogImg: resize {
+          src
+          width
+          height
         }
       }
     }
   }
 `
+// export const query = graphql`
+//   query($skip: Int!, $limit: Int!) {
+//     allContentfulPost(
+//       sort: { fields: [publishDate], order: DESC }
+//       limit: $limit
+//       skip: $skip
+//     ) {
+//       edges {
+//         node {
+//           title
+//           id
+//           slug
+//           publishDate(formatString: "MMMM DD, YYYY")
+//           heroImage {
+//             title
+//             fluid(maxWidth: 1800) {
+//               ...GatsbyContentfulFluid_withWebp_noBase64
+//             }
+//           }
+//           body {
+//             childMarkdownRemark {
+//               timeToRead
+//               html
+//               excerpt(pruneLength: 80)
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
 
 export default Index

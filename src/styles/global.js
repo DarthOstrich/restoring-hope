@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
+	body {
+		@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat&display=swap');
+	}
+
   /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -21,29 +25,29 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
+    /* font-size: 100%; */
     /* stylelint-disable-next-line */
     font: inherit;
     vertical-align: baseline;
   }
 
-  /* Added to Fix Footer to bottom of viewport */
-  html, body {
-    height: 100%;
-  }
-  .siteRoot {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  .siteContent {
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 auto;
-  }
-  footer {
-    width: 100%;
-  }
+  // /* Added to Fix Footer to bottom of viewport */
+  // html, body {
+  //   height: 100%;
+  // }
+  // .siteRoot {
+  //   height: 100vh;
+  //   display: flex;
+  //   flex-direction: column;
+  // }
+  // .siteContent {
+  //   display: flex;
+  //   flex-direction: column;
+  //   flex: 1 0 auto;
+  // }
+  // footer {
+  //   width: 100%;
+  // }
 
   /* End Fix to Place Footer on Bottom of Viewport */
 
@@ -52,12 +56,12 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
 
-  @media screen and (min-width: 35em) {
-    html {
-      margin-right: calc(-100vw + 100%);
-      overflow-x: hidden;
-    }
-  }
+  /* @media screen and (min-width: 35em) { */
+  /*   html { */
+  /*     margin-right: calc(-100vw + 100%); */
+  /*     overflow-x: hidden; */
+  /*   } */
+  /* } */
 
   ol, ul, li {
     list-style: none;
@@ -81,16 +85,19 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
-
+	html {
+		font-size: 62.5%;
+	}
   body {
     background: white;
-    line-height: 1;
-    font-size: 100%;
+		line-height: 1;
+		font-size: 1.6rem;
     font-variant-ligatures: none;
     text-rendering: optimizeLegibility;
     text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
-    font-weight: 400;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		font-weight: 400;
+		font-family: "Montserrat", sans-serif;
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
   }
 
   img {
@@ -115,6 +122,35 @@ const GlobalStyle = createGlobalStyle`
     &:invalid {
       box-shadow: none;
     }
-  }
+	}
+	// Typography
+	h1 {
+		font-size: 2.133rem
+		text-transform: uppercase;
+		letter-spacing: 0.1rem;
+	}
+	h1, h2, h3, h4 {
+		font-family: "Josefin Sans", sans-serif;
+		margin-bottom: 2rem;
+	}
+	h2, h3, h4 {
+		font-weight: bold;
+	}
+	h2 {
+		font-size: 2.843rem;
+	}
+	h3 {
+		font-size: 2.133rem
+	}
+	h4 {
+		font-size: 1.6rem;
+	}
+	p {
+		font-size: 1.6rem;
+	}
+	blockquote {
+		margin-bottom: 1rem;
+	}
+
 `
 export default GlobalStyle

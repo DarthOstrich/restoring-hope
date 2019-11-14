@@ -4,6 +4,7 @@ const theme = {
     secondary: '#E4F0F2', // Light Blue
     tertiary: '#688C32', // Forest Green
     highlight: '#D9A91A', // Orange
+    highlightDark: '#52400A', // Burnt Orange
     black: '#333333', // Black
     white: '#F2F2F2', // White
   },
