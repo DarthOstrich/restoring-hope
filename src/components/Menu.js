@@ -172,7 +172,12 @@ const StyledMenu = styled.nav`
 `
 
 const NavMenu = ({ open }) => {
-  const isMobile = window.innerWidth < 426
+  const isBrowser = typeof window !== 'undefined'
+  let isMobile = false
+  if (isBrowser) {
+    isMobile = window.innerWidth < 426
+  }
+
   return (
     <StyledMenu open={open}>
       {!isMobile && <span>Logo</span>}
@@ -211,10 +216,12 @@ const BurgerWrapper = styled.div`
 `
 
 const Menu = () => {
-  // check to see if we are in a browser
-  const isBrowser = typeof window !== `undefined`
-  // const { small, medium, large } = theme.responsive
-  const isMobile = window.innerWidth < 426
+  const isBrowser = typeof window !== 'undefined'
+  let isMobile = false
+  if (isBrowser) {
+    isMobile = window.innerWidth < 426
+    window.addEventListener('scroll', handleScroll)
+  }
   const [open, setOpen] = React.useState(false)
   const [fillNavBackground, setFillNavBackground] = React.useState(false)
 
@@ -239,8 +246,6 @@ const Menu = () => {
       setFillNavBackground(false)
     }
   }
-
-  window.addEventListener('scroll', handleScroll)
 
   return (
     <Header>
