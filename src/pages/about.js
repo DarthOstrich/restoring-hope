@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 import Container from '../components/Container'
 import Article from '../components/Article'
 // import PageTitle from '../components/PageTitle'
-// import Hero from '../components/Hero'
+import Hero from '../components/Hero'
 import SEO from '../components/SEO'
 const Clinician = ({ clinician }) => {
   const BioPic = styled(Img)`
@@ -67,6 +67,7 @@ const About = ({ data }) => {
   }
 
   const clinicians = data.allContentfulClinician.edges
+  const { heroImage } = data.contentfulPage
 
   const companyInfo = data.contentfulCompanyInfo
   const {
@@ -82,7 +83,7 @@ const About = ({ data }) => {
       </Helmet>
       <SEO postNode={postNode} pagePath="about" customTitle />
 
-      {/* <Hero title="Who We Are" image={heroImage} height={'50vh'} /> */}
+      <Hero title="Who We Are" image={heroImage} height={'50vh'} />
       <Container>
         <h1>Mission Statement</h1>
         <Article
@@ -107,6 +108,19 @@ export default About
 
 export const query = graphql`
   query {
+    contentfulPage(slug: { eq: "about" }) {
+      title
+      heroImage {
+        fluid(maxWidth: 1200) {
+          ...GatsbyContentfulFluid_withWebp_noBase64
+        }
+        ogimg: resize(width: 1200) {
+          src
+          width
+          height
+        }
+      }
+    }
     contentfulCompanyInfo(contentful_id: { eq: "127ollEi7qxzPVkBWiM0oT" }) {
       id
       missionStatementShort
