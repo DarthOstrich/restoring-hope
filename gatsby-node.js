@@ -112,31 +112,35 @@ exports.createPages = ({ graphql, actions }) => {
     })
   })
 
-  const loadPages = new Promise((resolve, reject) => {
-    graphql(`
-      {
-        allContentfulPage {
-          edges {
-            node {
-              slug
-            }
-          }
-        }
-      }
-    `).then(result => {
-      const pages = result.data.allContentfulPage.edges
-      pages.map(({ node }) => {
-        createPage({
-          path: `${node.slug}/`,
-          component: path.resolve(`./src/templates/page.js`),
-          context: {
-            slug: node.slug,
-          },
-        })
-      })
-      resolve()
-    })
-  })
+  // this builds the "page" type from contentful.
+  // disabling for the time being because I want to build pages manually.
 
-  return Promise.all([loadPosts, loadTags, loadPages])
+  // const loadPages = new Promise((resolve, reject) => {
+  //   graphql(`
+  //     {
+  //       allContentfulPage {
+  //         edges {
+  //           node {
+  //             slug
+  //           }
+  //         }
+  //       }
+  //     }
+  //   `).then(result => {
+  //     const pages = result.data.allContentfulPage.edges
+  //     pages.map(({ node }) => {
+  //       createPage({
+  //         path: `${node.slug}/`,
+  //         component: path.resolve(`./src/templates/page.js`),
+  //         context: {
+  //           slug: node.slug,
+  //         },
+  //       })
+  //     })
+  //     resolve()
+  //   })
+  // })
+
+  // return Promise.all([loadPosts, loadTags, loadPages])
+  return Promise.all([loadPosts, loadTags])
 }
