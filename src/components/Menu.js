@@ -68,9 +68,9 @@ const StyledBurger = styled.button`
   cursor: pointer;
   padding: 0;
   z-index: 10;
-  /* &:focus { */
-  /*   outline: none; */
-  /* } */
+  &:focus {
+    outline: none;
+  }
 
   div {
     width: 2rem;
@@ -110,6 +110,7 @@ const StyledMenu = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: center;
+	align-items: center;
   background: ${props => props.theme.colors.secondary};
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
   text-align: left;
@@ -133,12 +134,17 @@ const StyledMenu = styled.nav`
 
 	@media (min-width: 426px) {
 		flex-direction: row;
+		transform: translateX(0);
+		justify-content: space-between;
+		background: ${({ fillNavBackground, theme }) =>
+      fillNavBackground ? theme.colors.secondary : 'transparent'};
 		ul {
 
 		text-align: right;
 	}
 		li {
 			display: inline;
+			margin-left: 1rem;
 		}
 	}
   /* height: 100vh; */
@@ -171,7 +177,7 @@ const StyledMenu = styled.nav`
   /* } */
 `
 
-const NavMenu = ({ open }) => {
+const NavMenu = ({ open, fillNavBackground }) => {
   const isBrowser = typeof window !== 'undefined'
   let isMobile = false
   if (isBrowser) {
@@ -179,8 +185,10 @@ const NavMenu = ({ open }) => {
   }
 
   return (
-    <StyledMenu open={open}>
-      {!isMobile && <span>Logo</span>}
+    <StyledMenu open={open} fillNavBackground={fillNavBackground}>
+      <span>
+        <Logo src="/logos/RH-vector-logo-color.png" />
+      </span>
       <ul>
         <li>
           <Link to="/about/" activeStyle={activeLinkStyle}>
@@ -213,17 +221,30 @@ const BurgerWrapper = styled.div`
   transition: background 0.3s ease-in-out;
   background: ${props =>
     props.fillNavBackground ? props.theme.colors.secondary : 'transparent'};
+  align-items: center;
+  @media (min-width: 426px) {
+    display: none;
+  }
+`
+
+const Logo = styled.img`
+  width: 100%;
+  max-width: 50px;
 `
 
 const Menu = () => {
+  // check to see if it is a browser
   const isBrowser = typeof window !== 'undefined'
-  let isMobile = false
+  // set initial state using React hooks
+  const [open, setOpen] = React.useState(false)
+  const [fillNavBackground, setFillNavBackground] = React.useState(false)
+  const [windowWidth, setWindowWidth] = React.useState(0)
+  let isMobile
   if (isBrowser) {
     isMobile = window.innerWidth < 426
     window.addEventListener('scroll', handleScroll)
+    window.addEventListener('resize', handleResize)
   }
-  const [open, setOpen] = React.useState(false)
-  const [fillNavBackground, setFillNavBackground] = React.useState(false)
 
   function getScrollPosition() {
     if (!isBrowser) return { x: 0, y: 0 }
@@ -246,6 +267,10 @@ const Menu = () => {
       setFillNavBackground(false)
     }
   }
+  function handleResize() {
+    isMobile = window.innerWidth < 426
+    // setWindowWidth(window.innerWidth)
+  }
 
   return (
     <Header>
@@ -255,12 +280,17 @@ const Menu = () => {
           setFillNavBackground={setFillNavBackground}
         >
           <Link to="/" activeStyle={activeLinkStyle}>
-            Logo
+            <Logo src="/logos/RH-vector-logo-color.png" />
           </Link>
           <Burger open={open} setOpen={setOpen} />
         </BurgerWrapper>
       )}
-      <NavMenu open={open} setOpen={setOpen} />
+      <NavMenu
+        open={open}
+        setOpen={setOpen}
+        fillNavBackground={fillNavBackground}
+        setFillNavBackground={setFillNavBackground}
+      />
     </Header>
   )
 }

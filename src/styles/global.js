@@ -133,7 +133,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 	h1, h2, h3, h4 {
 		font-family: "Josefin Sans", sans-serif;
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
 	}
 	h2, h3, h4 {
 		font-weight: bold;
@@ -149,6 +149,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 	p {
 		font-size: 1.6rem;
+		margin-bottom: 1rem;
 	}
 	blockquote {
 		margin-bottom: 1rem;
