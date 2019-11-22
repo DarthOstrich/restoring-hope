@@ -4,7 +4,7 @@ const { responsive, colors, sizes } = theme
 
 const GlobalStyle = createGlobalStyle`
 	body {
-		@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat&display=swap');
+		// @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat&display=swap');
 	}
 
   /* http://meyerweb.com/eric/tools/css/reset/
@@ -32,26 +32,6 @@ const GlobalStyle = createGlobalStyle`
     font: inherit;
     vertical-align: baseline;
   }
-
-  // /* Added to Fix Footer to bottom of viewport */
-  // html, body {
-  //   height: 100%;
-  // }
-  // .siteRoot {
-  //   height: 100vh;
-  //   display: flex;
-  //   flex-direction: column;
-  // }
-  // .siteContent {
-  //   display: flex;
-  //   flex-direction: column;
-  //   flex: 1 0 auto;
-  // }
-  // footer {
-  //   width: 100%;
-  // }
-
-  /* End Fix to Place Footer on Bottom of Viewport */
 
   article, aside, details, figcaption, figure,
   footer, header, hgroup, menu, nav, section {
@@ -91,7 +71,8 @@ const GlobalStyle = createGlobalStyle`
 		font-size: 62.5%;
 	}
   body {
-    background: white;
+		margin: 0;
+    background: ${colors.white};
 		line-height: 1;
 		font-size: 1.6rem;
     font-variant-ligatures: none;
