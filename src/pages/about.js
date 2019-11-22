@@ -10,35 +10,6 @@ import Article from '../components/Article'
 // import PageTitle from '../components/PageTitle'
 import Hero from '../components/Hero'
 import SEO from '../components/SEO'
-const Clinician = ({ clinician }) => {
-  const BioPic = styled(Img)`
-    border-radius: 50%;
-  `
-  const { name, title, ageGroup, specialties, profilePicture } = clinician
-  return (
-    <>
-      <BioPic fluid={profilePicture.fluid} />
-      <section>
-        <h2>{name}</h2>
-        <h4>{title}</h4>
-        <p>Age Group: </p>
-        <ul>
-          {ageGroup.map(group => (
-            <li key={group}>{group}</li>
-          ))}
-        </ul>
-      </section>
-      <section>
-        <h3>Specialties</h3>
-        <ul>
-          {specialties.map(skill => (
-            <li key={skill}>{skill}</li>
-          ))}
-        </ul>
-      </section>
-    </>
-  )
-}
 
 const ClinicianBio = styled(Article)`
   flex-wrap: wrap;
@@ -48,16 +19,63 @@ const ClinicianBio = styled(Article)`
     flex-basis: 33%;
   }
   section {
-    flex-basis: 66%;
+    flex-basis: 33%;
+  }
+  aside {
+    flex-basis: 33%;
   }
 `
-const Clinicians = ({ clinicians }) => {
+
+const formatAgeGroup = groups => {
+  let list = ''
+  groups.map((group, index) => {
+    if (index === groups.length - 1) {
+      list += `and ${group} `
+    } else {
+      list += `${group} `
+    }
+  })
+  return list
+}
+
+const Clinician = ({ clinician }) => {
+  const BioPic = styled(Img)`
+    border-radius: 50%;
+  `
+  const { name, title, ageGroup, specialties, profilePicture } = clinician
   return (
     <ClinicianBio>
+      <BioPic fluid={profilePicture.fluid} />
+      <section>
+        <h2>{name}</h2>
+        <h4>{title}</h4>
+        <p>{formatAgeGroup(ageGroup)}</p>
+        {/* <p>Age Group: </p> */}
+        {/* <ul> */}
+        {/*   {ageGroup.map(group => ( */}
+        {/*     <li key={group}>{group}</li> */}
+        {/*   ))} */}
+        {/* </ul> */}
+      </section>
+      <aside>
+        <h3>Specialties</h3>
+        <ul>
+          {specialties.map(skill => (
+            <li key={skill}>{skill}</li>
+          ))}
+        </ul>
+      </aside>
+    </ClinicianBio>
+  )
+}
+
+const Clinicians = ({ clinicians }) => {
+  return (
+    <section>
       {clinicians.map(clinician => (
         <Clinician key={clinician.node.name} clinician={clinician.node} />
       ))}
-    </ClinicianBio>
+    </section>
   )
 }
 

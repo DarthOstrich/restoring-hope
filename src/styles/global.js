@@ -150,6 +150,7 @@ const GlobalStyle = createGlobalStyle`
 	p {
 		font-size: 1.6rem;
 		margin-bottom: 1rem;
+    line-height: 1.2;
 	}
 	blockquote {
 		margin-bottom: 1rem;
@@ -162,6 +163,10 @@ const GlobalStyle = createGlobalStyle`
 			color: ${colors.highlightDark}
 		}
 	}
+	ol, ul, li {
+		margin-bottom: 1rem;
+	}
+
 
 `
 export default GlobalStyle

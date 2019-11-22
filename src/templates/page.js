@@ -5,7 +5,7 @@ import config from '../utils/siteConfig'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import Hero from '../components/Hero'
-import PageTitle from '../components/PageTitle'
+// import PageTitle from '../components/PageTitle'
 import PageBody from '../components/PageBody'
 import SEO from '../components/SEO'
 

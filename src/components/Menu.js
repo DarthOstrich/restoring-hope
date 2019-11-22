@@ -183,12 +183,13 @@ const NavMenu = ({ open, fillNavBackground }) => {
   if (isBrowser) {
     isMobile = window.innerWidth < 426
   }
+  const pages = ['about', 'contact', 'resources', 'services']
 
   return (
     <StyledMenu open={open} fillNavBackground={fillNavBackground}>
-      <span>
+      <Link to="/" activeStyle={activeLinkStyle}>
         <Logo src="/logos/RH-vector-logo-color.png" />
-      </span>
+      </Link>
       <ul>
         <li>
           <Link to="/about/" activeStyle={activeLinkStyle}>
@@ -196,10 +197,15 @@ const NavMenu = ({ open, fillNavBackground }) => {
           </Link>
         </li>
         <li>
-          <Link to="/contact/" activeStyle={activeLinkStyle}>
-            Contact
+          <Link to="/services/" activeStyle={activeLinkStyle}>
+            Services
           </Link>
         </li>
+        {/* <li> */}
+        {/*   <Link to="/contact/" activeStyle={activeLinkStyle}> */}
+        {/*     Contact */}
+        {/*   </Link> */}
+        {/* </li> */}
         <li>
           <Link to="/resources/" activeStyle={activeLinkStyle}>
             Community Resources
