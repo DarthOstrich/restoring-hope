@@ -9,7 +9,7 @@ import Hero from '../components/Hero'
 import PageBody from '../components/PageBody'
 import SEO from '../components/SEO'
 
-const PageTemplate = ({ data, children, layout }) => {
+const PageTemplateInteral = ({ data, children, layout }) => {
   const { title, slug, body, heroImage } = data.contentfulPage
   const postNode = data.contentfulPage
   return (
@@ -74,4 +74,4 @@ const PageTemplate = ({ data, children, layout }) => {
 //   }
 // `
 //
-export default PageTemplate
+export default PageTemplateInteral
