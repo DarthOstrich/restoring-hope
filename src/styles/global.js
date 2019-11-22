@@ -3,10 +3,6 @@ import theme from './theme'
 const { responsive, colors, sizes } = theme
 
 const GlobalStyle = createGlobalStyle`
-	body {
-		// @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat&display=swap');
-	}
-
   /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)

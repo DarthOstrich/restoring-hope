@@ -9,7 +9,7 @@ import Hero from '../components/Hero'
 import PageBody from '../components/PageBody'
 import SEO from '../components/SEO'
 
-const PageTemplateWithInteralContent = ({ data }) => {
+const PageTemplate = ({ data, children, layout }) => {
   const { title, slug, body, heroImage } = data.contentfulPage
   const postNode = data.contentfulPage
   return (
@@ -20,7 +20,8 @@ const PageTemplateWithInteralContent = ({ data }) => {
       <SEO pagePath={slug} postNode={postNode} pageSEO />
 
       <Hero title={title} image={heroImage} height={'50vh'} />
-      <Container>{body && <PageBody body={body} />}</Container>
+      {/* <Container>{body && <PageBody body={body} />}</Container> */}
+      <Container layout={layout}>{children}</Container>
     </Layout>
   )
 }
@@ -73,4 +74,4 @@ const PageTemplateWithInteralContent = ({ data }) => {
 //   }
 // `
 //
-export default PageTemplateWithInteralContent
+export default PageTemplate

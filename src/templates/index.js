@@ -22,24 +22,24 @@ const Index = ({ data, pageContext }) => {
   // const { currentPage } = pageContext
   // const isFirstPage = currentPage === 1
   const heroImage = data.allContentfulAsset.nodes[0]
-  const groupList = [
-    'Trauma Education',
-    'Trauma Process Group',
-    'Co-Dependency Group',
-    'Helping Woman Recover',
-    'Helping Men Recover',
-    'Substance Use Disorder (SUD) support group',
-    'Family Education Group',
-    'Mindfulness Relapse Prevention',
-    'Early Recovery Skills',
-    'Moral Reconation Therapy (MRT)',
-    'Anger Management',
-  ]
+  const { edges: groups } = data.allContentfulGroup
+  // const groupList = [
+  //   'Trauma Education',
+  //   'Trauma Process Group',
+  //   'Co-Dependency Group',
+  //   'Helping Woman Recover',
+  //   'Helping Men Recover',
+  //   'Substance Use Disorder (SUD) support group',
+  //   'Family Education Group',
+  //   'Mindfulness Relapse Prevention',
+  //   'Early Recovery Skills',
+  //   'Moral Reconation Therapy (MRT)',
+  //   'Anger Management',
+  // ]
 
   const HomeH1 = styled.h1`
     text-align: center;
   `
-
   return (
     <Layout>
       <SEO />
@@ -72,11 +72,13 @@ const Index = ({ data, pageContext }) => {
         <Article direction="column">
           <HomeH1>Groups</HomeH1>
           <ul>
-            {groupList.map(group => (
-              <li key={group}>
-                <h2>{group}</h2>
-              </li>
-            ))}
+            {groups.map(({ node: group }) => {
+              return (
+                <li key={group.title}>
+                  <h2>{group.title}</h2>
+                </li>
+              )
+            })}
           </ul>
         </Article>
         <Article direction="column">
@@ -137,6 +139,13 @@ export const query = graphql`
           src
           width
           height
+        }
+      }
+    }
+    allContentfulGroup {
+      edges {
+        node {
+          title
         }
       }
     }
