@@ -183,7 +183,7 @@ const NavMenu = ({ open, fillNavBackground }) => {
   if (isBrowser) {
     isMobile = window.innerWidth < 426
   }
-  const pages = ['about', 'contact', 'resources', 'services']
+  const pages = ['about', 'contact', 'resources', 'services', 'forms']
 
   return (
     <StyledMenu open={open} fillNavBackground={fillNavBackground}>
@@ -192,13 +192,18 @@ const NavMenu = ({ open, fillNavBackground }) => {
       </Link>
       <ul>
         <li>
-          <Link to="/about/" activeStyle={activeLinkStyle}>
-            About
+          <Link to="/services/" activeStyle={activeLinkStyle}>
+            Services
           </Link>
         </li>
         <li>
-          <Link to="/services/" activeStyle={activeLinkStyle}>
-            Services
+          <Link to="/about/" activeStyle={activeLinkStyle}>
+            Who We Are
+          </Link>
+        </li>
+        <li>
+          <Link to="/resources/" activeStyle={activeLinkStyle}>
+            Resources
           </Link>
         </li>
         {/* <li> */}
@@ -207,9 +212,17 @@ const NavMenu = ({ open, fillNavBackground }) => {
         {/*   </Link> */}
         {/* </li> */}
         <li>
-          <Link to="/resources/" activeStyle={activeLinkStyle}>
-            Community Resources
+          <Link to="/forms/" activeStyle={activeLinkStyle}>
+            Forms
           </Link>
+        </li>
+        <li>
+          <Link to="/blog/" activeStyle={activeLinkStyle}>
+            Blog
+          </Link>
+        </li>
+        <li>
+          <a href="tel:1-208-602-9296">(208) 602-9296</a>
         </li>
       </ul>
     </StyledMenu>

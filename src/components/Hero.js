@@ -36,18 +36,18 @@ const BgImg = styled(Img)`
 `
 
 const Title = styled.h1`
-  font-size: 3em;
+  font-size: 4rem;
   text-transform: capitalize;
-  font-weight: 600;
+  font-weight: 700;
   position: absolute;
+  right: 50%;
+  bottom: 0;
   width: 100%;
-  max-width: ${props => props.theme.sizes.maxWidthCentered};
-  padding: 0 1rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
+  max-width: ${props => props.theme.sizes.maxWidth};
+  padding: 0 2rem;
+  transform: translate(50%, 0%);
+  text-align: right;
+  color: ${props => props.theme.colors.white};
 `
 
 const Hero = props => (

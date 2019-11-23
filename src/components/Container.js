@@ -7,7 +7,7 @@ const Wrapper = styled.main`
   margin: 0 auto auto;
   width: 100%;
   max-width: ${props => props.theme.sizes.maxWidth};
-  padding: 3em 1.5em 2em;
+  padding: 4rem 2rem 3rem;
   flex-grow: 1;
   // Styles for headersLeft
   flex-direction: ${props => props.headersLeft && 'row;'};

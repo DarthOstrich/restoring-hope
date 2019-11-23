@@ -12,6 +12,21 @@ import Article from '../components/Article'
 import Hero from '../components/Hero'
 import SEO from '../components/SEO'
 
+const ArticleWithStyledList = styled(Article)`
+  ul {
+    li {
+      padding-left: 2rem;
+      :before {
+        content: '✓'; /* FontAwesome Unicode */
+        display: inline-block;
+        margin-left: -2rem; /* same as padding-left set on li */
+        width: 2rem; /* same as padding-left set on li */
+        color: ${props => props.theme.colors.highlight};
+      }
+    }
+  }
+`
+
 const Services = ({ data }) => {
   // const postNode = {
   //   title: `Services - ${config.siteTitle}`,
@@ -53,14 +68,14 @@ const Services = ({ data }) => {
           {groups.map(({ node: group }) => {
             return (
               <li key={group.title}>
-                <h2>{group.title}</h2>
+                <h4>{group.title}</h4>
               </li>
             )
           })}
         </ul>
       </Article>
       <h1>Criteria For Admission</h1>
-      <Article
+      <ArticleWithStyledList
         dangerouslySetInnerHTML={{
           __html: generalAdmissionCriteria.childMarkdownRemark.html,
         }}

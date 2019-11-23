@@ -2,11 +2,30 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import PageTemplateInternal from '../templates/pageInteral'
 
+const Form = ({ form }) => {
+  const { title, description, instructions, formFile } = form
+  return (
+    <article>
+      <h3>{form.title}</h3>
+      <h4>Instructions</h4>
+      <aside
+        dangerouslySetInnerHTML={{
+          __html: instructions.childMarkdownRemark.html,
+        }}
+      />
+      <a href={formFile.file.url}>Download File</a>
+    </article>
+  )
+}
+
 const Forms = ({ data }) => {
+  const forms = data.allContentfulForm.edges
   debugger
   return (
     <PageTemplateInternal data={data}>
-      <p>Words</p>
+      {forms.map(({ node }) => {
+        return <Form key={node.title} form={node} />
+      })}
     </PageTemplateInternal>
   )
 }
@@ -30,6 +49,24 @@ export const query = graphql`
           src
           width
           height
+        }
+      }
+    }
+    allContentfulForm {
+      totalCount
+      edges {
+        node {
+          title
+          instructions {
+            childMarkdownRemark {
+              html
+            }
+          }
+          formFile {
+            file {
+              url
+            }
+          }
         }
       }
     }
