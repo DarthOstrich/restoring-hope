@@ -2,14 +2,14 @@ import React, { useRef, useLayoutEffect } from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 import theme from '../styles/theme'
+import Hero from '../components/Hero'
 
 const Header = styled.header`
 	background: transparent;
   /* background: ${props => props.theme.colors.base}; */
   width: 100%;
   /* padding: 2rem; */
-	position: fixed;
-	z-index: 100000000;
+	/* position: fixed; */
   /* width: 100%; */
   /* max-width: ${props => props.theme.sizes.maxWidth}; */
   margin: 0 auto;
@@ -17,47 +17,12 @@ const Header = styled.header`
 	justify-content: space-between;
 	flex-direction: column;
 `
-// const Nav = styled.nav`
-//   width: 100%;
-//   max-width: ${props => props.theme.sizes.maxWidth};
-//   margin: 0 auto;
-//   padding: 0 1.5em;
-//
-//   ul {
-//     display: flex;
-//     justify-content: space-between;
-//   }
-//
-//   li {
-//     display: inline-block;
-//     margin-left: 1em;
-//     &:first-child {
-//       position: relative;
-//       margin: 0;
-//       flex-basis: 100%;
-//     }
-//   }
-//
-//   a {
-//     text-decoration: none;
-//     color: DarkGray;
-//     font-weight: 600;
-//     transition: all 0.2s;
-//     border-bottom: 2px solid ${props => props.theme.colors.base};
-//     &:hover {
-//       color: white;
-//     }
-//   }
-// `
 
 const activeLinkStyle = {
   color: 'white',
 }
 
 const StyledBurger = styled.button`
-  /* position: absolute; */
-  /* top: 2rem; */
-  /* right: 2rem; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -75,8 +40,8 @@ const StyledBurger = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${({ open, theme }) =>
-      open ? theme.colors.white : theme.colors.white};
+    background: ${({ fillNavBackground, theme }) =>
+      fillNavBackground ? theme.colors.black : theme.colors.white};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
@@ -97,9 +62,13 @@ const StyledBurger = styled.button`
   }
 `
 
-const Burger = ({ open, setOpen }) => {
+const Burger = ({ open, setOpen, fillNavBackground }) => {
   return (
-    <StyledBurger open={open} onClick={() => setOpen(!open)}>
+    <StyledBurger
+      open={open}
+      fillNavBackground={fillNavBackground}
+      onClick={() => setOpen(!open)}
+    >
       <div />
       <div />
       <div />
@@ -107,12 +76,16 @@ const Burger = ({ open, setOpen }) => {
   )
 }
 const StyledMenu = styled.nav`
+	position: fixed;
+	width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-	align-items: center;
+	align-items: flex-start;
+	margin-top: 90px;
   background: ${props => props.theme.colors.secondary};
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
+  z-index: ${({ open }) => (open ? '100' : '0')};
   text-align: left;
   padding: 2rem;
   transition: transform 0.3s ease-in-out;
@@ -134,8 +107,11 @@ const StyledMenu = styled.nav`
 
 	@media (min-width: 426px) {
 		flex-direction: row;
+    z-index: 10;
 		transform: translateX(0);
 		justify-content: space-between;
+		align-items: center;
+		margin-top: 0;
 		background: ${({ fillNavBackground, theme }) =>
       fillNavBackground ? theme.colors.secondary : 'transparent'};
 		ul {
@@ -230,12 +206,13 @@ const NavMenu = ({ open, fillNavBackground }) => {
 }
 
 const BurgerWrapper = styled.div`
+  position: fixed;
   display: flex;
   justify-content: space-between;
   width: 100%;
   padding: 2rem;
-  z-index: 100000000;
   width: 100%;
+  z-index: 100;
   max-width: ${props => props.theme.sizes.maxWidth};
   transition: background 0.3s ease-in-out;
   background: ${props =>
@@ -251,16 +228,18 @@ const Logo = styled.img`
   max-width: 50px;
 `
 
-const Menu = () => {
+const Menu = ({ children, heroImage }) => {
+  let menuBreakPoint = 426
   // check to see if it is a browser
   const isBrowser = typeof window !== 'undefined'
   // set initial state using React hooks
   const [open, setOpen] = React.useState(false)
   const [fillNavBackground, setFillNavBackground] = React.useState(false)
+  // const [isMobile, setIsMobile] = React.useState(true)
   const [windowWidth, setWindowWidth] = React.useState(0)
-  let isMobile
+  // let isMobile
   if (isBrowser) {
-    isMobile = window.innerWidth < 426
+    // setIsMobile(window.innerWidth < menuBreakPoint )
     window.addEventListener('scroll', handleScroll)
     window.addEventListener('resize', handleResize)
   }
@@ -280,20 +259,20 @@ const Menu = () => {
 
   function handleScroll() {
     const position = getScrollPosition()
-    if (position.y > 100) {
+    if (position.y > 50) {
       setFillNavBackground(true)
     } else if (position.y <= 100) {
       setFillNavBackground(false)
     }
   }
   function handleResize() {
-    isMobile = window.innerWidth < 426
-    // setWindowWidth(window.innerWidth)
+    // isMobile = window.innerWidth < 426
+    setWindowWidth(window.innerWidth)
   }
 
   return (
     <Header>
-      {isMobile && (
+      {windowWidth < menuBreakPoint && (
         <BurgerWrapper
           fillNavBackground={fillNavBackground}
           setFillNavBackground={setFillNavBackground}
@@ -301,7 +280,11 @@ const Menu = () => {
           <Link to="/" activeStyle={activeLinkStyle}>
             <Logo src="/logos/RH-vector-logo-color.png" />
           </Link>
-          <Burger open={open} setOpen={setOpen} />
+          <Burger
+            open={open}
+            setOpen={setOpen}
+            fillNavBackground={fillNavBackground}
+          />
         </BurgerWrapper>
       )}
       <NavMenu
@@ -310,6 +293,12 @@ const Menu = () => {
         fillNavBackground={fillNavBackground}
         setFillNavBackground={setFillNavBackground}
       />
+      {children}
+      {/* <Hero */}
+      {/*   image={heroImage} */}
+      {/*   height="50vh" */}
+      {/*   quote="Empowering wholehearted living by cultivating and embracing hope." */}
+      {/* ></Hero> */}
     </Header>
   )
 }

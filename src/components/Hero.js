@@ -57,7 +57,7 @@ const Hero = props => (
       fluid={props.image.fluid}
       backgroundColor={'#eeeeee'}
     />
-    <Title>{props.title}</Title>
+    {props.title && <Title>{props.title}</Title>}
   </Wrapper>
 )
 

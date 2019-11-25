@@ -1,6 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
+import Menu from '../components/Menu'
+import Button from '../components/Button'
 // import CardList from '../components/CardList'
 // import Card from '../components/Card'
 import Helmet from 'react-helmet'
@@ -9,6 +11,7 @@ import Container from '../components/Container'
 import SEO from '../components/SEO'
 import config from '../utils/siteConfig'
 import HomeHero from '../components/HomeHero'
+import Hero from '../components/Hero'
 
 import styled from 'styled-components'
 const Article = styled.article`
@@ -16,6 +19,30 @@ const Article = styled.article`
   flex-direction: ${props => (props.direction ? props.direction : null)};
 `
 
+const CallToAction = styled.aside`
+  max-width: ${props => props.theme.sizes.maxWidth};
+  position: absolute;
+  width: 100%;
+  margin: auto;
+  padding: 2rem;
+  padding-top: 7rem;
+  line-height: 1.5;
+  text-align: center;
+  color: ${props => props.theme.colors.white};
+  @media (min-width: ${props => props.theme.responsive.small}) {
+    height: ${props => props.height || 'auto'};
+  }
+  blockquote {
+    font-size: 2.5rem;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+  a {
+  }
+  button {
+    color: ${props => props.theme.colors.white};
+  }
+`
 const Index = ({ data, pageContext }) => {
   // const posts = data.allContentfulPost.edges
   // const featuredPost = posts[0].node
@@ -23,34 +50,32 @@ const Index = ({ data, pageContext }) => {
   // const isFirstPage = currentPage === 1
   const heroImage = data.allContentfulAsset.nodes[0]
   const { edges: groups } = data.allContentfulGroup
-  // const groupList = [
-  //   'Trauma Education',
-  //   'Trauma Process Group',
-  //   'Co-Dependency Group',
-  //   'Helping Woman Recover',
-  //   'Helping Men Recover',
-  //   'Substance Use Disorder (SUD) support group',
-  //   'Family Education Group',
-  //   'Mindfulness Relapse Prevention',
-  //   'Early Recovery Skills',
-  //   'Moral Reconation Therapy (MRT)',
-  //   'Anger Management',
-  // ]
 
   const HomeH1 = styled.h1`
     text-align: center;
   `
   return (
     <Layout>
-      <SEO />
-      <Helmet>
-        <title>{config.siteTitle}</title>
-      </Helmet>
-      <HomeHero
-        image={heroImage}
-        height="50vh"
-        quote="Empowering wholehearted living by cultivating and embracing hope."
-      ></HomeHero>
+      <Menu>
+        <Hero image={heroImage} height="50vh" />
+        {/* <HomeHero */}
+        {/*   image={heroImage} */}
+        {/*   height="50vh" */}
+        {/*   quote="Empowering wholehearted living by cultivating and embracing hope." */}
+        {/* /> */}
+        <CallToAction>
+          <blockquote>
+            Empowering wholehearted living by cultivating and embracing hope.
+          </blockquote>
+          <a href="tel:1-208-602-9296">
+            <Button>Call Us Now</Button>
+          </a>
+        </CallToAction>
+      </Menu>
+      {/* <SEO /> */}
+      {/* <Helmet> */}
+      {/*   <title>{config.siteTitle}</title> */}
+      {/* </Helmet> */}
       <Container>
         <Article direction="column">
           <HomeH1>Services</HomeH1>
