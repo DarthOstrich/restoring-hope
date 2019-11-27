@@ -20,7 +20,6 @@ const Form = ({ form }) => {
 
 const Forms = ({ data }) => {
   const forms = data.allContentfulForm.edges
-  debugger
   return (
     <PageTemplateInternal data={data}>
       {forms.map(({ node }) => {

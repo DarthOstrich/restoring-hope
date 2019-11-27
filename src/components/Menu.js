@@ -1,5 +1,5 @@
-import React, { useRef, useLayoutEffect } from 'react'
-import { Link } from 'gatsby'
+import React, { useRef, useState, useEffect } from 'react'
+import { Link, StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
 import theme from '../styles/theme'
 import Hero from '../components/Hero'
@@ -16,6 +16,7 @@ const Header = styled.header`
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
+	position: relative;
 `
 
 const activeLinkStyle = {
@@ -75,20 +76,32 @@ const Burger = ({ open, setOpen, fillNavBackground }) => {
     </StyledBurger>
   )
 }
-const StyledMenu = styled.nav`
-	position: fixed;
-	width: 100%;
+const StyledMenu = styled.div`
+  position: fixed;
+  width: 100%;
+  margin-top: 90px;
+  padding: 2rem;
+  z-index: ${({ open }) => (open ? '100' : '0')};
+  background: ${props => props.theme.colors.secondary};
+  transform: ${({ open }) => (open ? 'translatex(0)' : 'translatex(-100%)')};
+  transition: transform 0.3s ease-in-out;
+  @media (min-width: 426px) {
+    text-align: left;
+    z-index: 10;
+    transform: translateX(0);
+    margin-top: 0;
+    background: ${({ fillNavBackground, theme }) =>
+      fillNavBackground ? theme.colors.secondary : 'transparent'};
+  }
+`
+
+const StyledMenuContent = styled.nav`
+  max-width: ${props => props.theme.sizes.maxWidth};
+	margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
 	align-items: flex-start;
-	margin-top: 90px;
-  background: ${props => props.theme.colors.secondary};
-  transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
-  z-index: ${({ open }) => (open ? '100' : '0')};
-  text-align: left;
-  padding: 2rem;
-  transition: transform 0.3s ease-in-out;
 
   li {
     margin-bottom: 1rem;
@@ -108,100 +121,85 @@ const StyledMenu = styled.nav`
 	@media (min-width: 426px) {
 		flex-direction: row;
     z-index: 10;
-		transform: translateX(0);
 		justify-content: space-between;
 		align-items: center;
-		margin-top: 0;
-		background: ${({ fillNavBackground, theme }) =>
-      fillNavBackground ? theme.colors.secondary : 'transparent'};
 		ul {
-
-		text-align: right;
+			text-align: right;
+			margin-bottom: 0;
 	}
 		li {
 			display: inline;
 			margin-left: 1rem;
 		}
 	}
-  /* height: 100vh; */
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
-
-  /* @media (max-width: 576px) { */
-  /*   width: 100%; */
-  /* } */
-
-  /* a { */
-  /*   font-size: 2rem; */
-  /*   text-transform: uppercase; */
-  /*   padding: 2rem 0; */
-  /*   font-weight: bold; */
-  /*   letter-spacing: 0.5rem; */
-  /*   color: #0d0c1d; */
-  /*   text-decoration: none; */
-  /*   transition: color 0.3s linear; */
-  /*  */
-  /*   @media (max-width: 576px) { */
-  /*     font-size: 1.5rem; */
-  /*     text-align: center; */
-  /*   } */
-  /*  */
-  /*   &:hover { */
-  /*     color: #343078; */
-  /*   } */
-  /* } */
 `
 
 const NavMenu = ({ open, fillNavBackground }) => {
-  const isBrowser = typeof window !== 'undefined'
-  let isMobile = false
-  if (isBrowser) {
-    isMobile = window.innerWidth < 426
-  }
+  // const isBrowser = typeof window !== 'undefined'
+  // let isMobile = false
+  // if (isBrowser) {
+  //   isMobile = window.innerWidth < 426
+  // }
   const pages = ['about', 'contact', 'resources', 'services', 'forms']
 
   return (
-    <StyledMenu open={open} fillNavBackground={fillNavBackground}>
-      <Link to="/" activeStyle={activeLinkStyle}>
-        <Logo src="/logos/RH-vector-logo-color.png" />
-      </Link>
-      <ul>
-        <li>
-          <Link to="/services/" activeStyle={activeLinkStyle}>
-            Services
-          </Link>
-        </li>
-        <li>
-          <Link to="/about/" activeStyle={activeLinkStyle}>
-            Who We Are
-          </Link>
-        </li>
-        <li>
-          <Link to="/resources/" activeStyle={activeLinkStyle}>
-            Resources
-          </Link>
-        </li>
-        {/* <li> */}
-        {/*   <Link to="/contact/" activeStyle={activeLinkStyle}> */}
-        {/*     Contact */}
-        {/*   </Link> */}
-        {/* </li> */}
-        <li>
-          <Link to="/forms/" activeStyle={activeLinkStyle}>
-            Forms
-          </Link>
-        </li>
-        <li>
-          <Link to="/blog/" activeStyle={activeLinkStyle}>
-            Blog
-          </Link>
-        </li>
-        <li>
-          <a href="tel:1-208-602-9296">(208) 602-9296</a>
-        </li>
-      </ul>
-    </StyledMenu>
+    <StaticQuery
+      query={graphql`
+        query headerQuery {
+          contentfulCompanyInfo(
+            contentful_id: { eq: "127ollEi7qxzPVkBWiM0oT" }
+          ) {
+            phone
+          }
+        }
+      `}
+      render={({ contentfulCompanyInfo }) => (
+        <StyledMenu open={open} fillNavBackground={fillNavBackground}>
+          <StyledMenuContent>
+            <Link to="/" activeStyle={activeLinkStyle}>
+              <Logo src="/logos/RH-vector-logo-color.png" />
+            </Link>
+            <ul>
+              <li>
+                <Link to="/services/" activeStyle={activeLinkStyle}>
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/about/" activeStyle={activeLinkStyle}>
+                  Who We Are
+                </Link>
+              </li>
+              <li>
+                <Link to="/resources/" activeStyle={activeLinkStyle}>
+                  Resources
+                </Link>
+              </li>
+              {/* <li> */}
+              {/*   <Link to="/contact/" activeStyle={activeLinkStyle}> */}
+              {/*     Contact */}
+              {/*   </Link> */}
+              {/* </li> */}
+              <li>
+                <Link to="/forms/" activeStyle={activeLinkStyle}>
+                  Forms
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/" activeStyle={activeLinkStyle}>
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <a href={'tel:' + contentfulCompanyInfo.phone}>
+                  {contentfulCompanyInfo.phone}
+                </a>
+              </li>
+            </ul>
+          </StyledMenuContent>
+        </StyledMenu>
+      )}
+    />
   )
 }
 
@@ -230,18 +228,45 @@ const Logo = styled.img`
 
 const Menu = ({ children, heroImage }) => {
   let menuBreakPoint = 426
+  // set initial state using React hooks
+  const [open, setOpen] = useState(false)
+  const [fillNavBackground, setFillNavBackground] = useState(false)
+  const [windowWidth, setWindowWidth] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  // let isMobile
+
   // check to see if it is a browser
   const isBrowser = typeof window !== 'undefined'
-  // set initial state using React hooks
-  const [open, setOpen] = React.useState(false)
-  const [fillNavBackground, setFillNavBackground] = React.useState(false)
-  // const [isMobile, setIsMobile] = React.useState(true)
-  const [windowWidth, setWindowWidth] = React.useState(0)
-  // let isMobile
+  // const isMobile = useRef(true)
   if (isBrowser) {
-    // setIsMobile(window.innerWidth < menuBreakPoint )
-    window.addEventListener('scroll', handleScroll)
-    window.addEventListener('resize', handleResize)
+    useWindowWidth()
+    useWindowScroll()
+    // isMobile.current = window.innerWidth < menuBreakPoint
+  }
+
+  function useWindowWidth() {
+    // const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    useEffect(() => {
+      // const handleResize = () => setWindowWidth(window.innerWidth)
+      window.addEventListener('resize', handleResize)
+      return () => {
+        window.removeEventListener('resize', handleResize)
+      }
+    })
+  }
+
+  function useWindowScroll() {
+    const [scrollPosition, setScrollPosition] = useState({
+      x: window.scrollX,
+      y: window.scrollY,
+    })
+
+    useEffect(() => {
+      window.addEventListener('scroll', handleScroll)
+      return () => {
+        window.removeEventListener('scroll', handleScroll)
+      }
+    })
   }
 
   function getScrollPosition() {
@@ -265,8 +290,9 @@ const Menu = ({ children, heroImage }) => {
       setFillNavBackground(false)
     }
   }
+
   function handleResize() {
-    // isMobile = window.innerWidth < 426
+    // isMobile.current = window.innerWidth < menuBreakPoint
     setWindowWidth(window.innerWidth)
   }
 

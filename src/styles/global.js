@@ -137,7 +137,7 @@ const GlobalStyle = createGlobalStyle`
 		color: ${colors.highlight}
     transition: color 0.3s linear;
 		&:hover {
-			color: ${colors.highlightDark}
+			color: ${colors.white}
 		}
 	}
 	ol, ul, li {

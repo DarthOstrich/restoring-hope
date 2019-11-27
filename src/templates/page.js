@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import config from '../utils/siteConfig'
 import Layout from '../components/Layout'
+import Menu from '../components/Menu'
 import Container from '../components/Container'
 import Hero from '../components/Hero'
 // import PageTitle from '../components/PageTitle'
@@ -19,7 +20,10 @@ const PageTemplateWithInteralContent = ({ data }) => {
       </Helmet>
       <SEO pagePath={slug} postNode={postNode} pageSEO />
 
-      <Hero title={title} image={heroImage} height={'50vh'} />
+      <Menu>
+        <Hero title={title} image={heroImage} height="50vh" />
+      </Menu>
+      {/* <Hero title={title} image={heroImage} height={'50vh'} /> */}
       <Container>{body && <PageBody body={body} />}</Container>
     </Layout>
   )

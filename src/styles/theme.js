@@ -13,9 +13,13 @@ const theme = {
     maxWidthCentered: '650px',
   },
   responsive: {
-    small: '35em',
-    medium: '50em',
-    large: '70em',
+    small: '411px',
+    medium: '768px',
+    large: '1024px',
+  },
+  fonts: {
+    primary: `"Josefin Sans", sans-serif`,
+    secondary: `"Montserrat", sans-serif;`,
   },
 }
 

@@ -23,18 +23,18 @@ const CallToAction = styled.aside`
   max-width: ${props => props.theme.sizes.maxWidth};
   position: absolute;
   width: 100%;
+  left: 0;
+  right: 0;
   margin: auto;
   padding: 2rem;
   padding-top: 7rem;
   line-height: 1.5;
+  font-family: ${props => props.theme.fonts.primary};
   text-align: center;
   color: ${props => props.theme.colors.white};
-  @media (min-width: ${props => props.theme.responsive.small}) {
-    height: ${props => props.height || 'auto'};
-  }
   blockquote {
     font-size: 2.5rem;
-    text-align: left;
+    /* text-align: left; */
     margin-bottom: 2rem;
   }
   a {
@@ -42,13 +42,31 @@ const CallToAction = styled.aside`
   button {
     color: ${props => props.theme.colors.white};
   }
+  @media (min-width: ${props => props.theme.responsive.small}) {
+    height: ${props => props.height || 'auto'};
+  }
+
+  @media (min-width: ${props => props.theme.responsive.medium}) {
+    transform: translateY(10%);
+    blockquote {
+      font-weight: 100;
+      font-size: 5rem;
+    }
+  }
+  @media (min-width: ${props => props.theme.responsive.large}) {
+    blockquote {
+      font-size: 6rem;
+    }
+  }
 `
 const Index = ({ data, pageContext }) => {
   // const posts = data.allContentfulPost.edges
   // const featuredPost = posts[0].node
   // const { currentPage } = pageContext
   // const isFirstPage = currentPage === 1
-  const heroImage = data.allContentfulAsset.nodes[0]
+  const postNode = data.contentfulPage
+  const { title, slug, heroImage } = data.contentfulPage
+  // const heroImage = data.allContentfulAsset.nodes[0]
   const { edges: groups } = data.allContentfulGroup
 
   const HomeH1 = styled.h1`
@@ -56,8 +74,12 @@ const Index = ({ data, pageContext }) => {
   `
   return (
     <Layout>
+      <Helmet>
+        <title>{`Restoring Hope - ${title}`}</title>
+      </Helmet>
+      <SEO pagePath={slug} postNode={postNode} pageSEO />
       <Menu>
-        <Hero image={heroImage} height="50vh" />
+        <Hero image={heroImage} height={'50vh'} />
         {/* <HomeHero */}
         {/*   image={heroImage} */}
         {/*   height="50vh" */}
@@ -152,15 +174,19 @@ const Index = ({ data, pageContext }) => {
 
 export const query = graphql`
   query {
-    allContentfulAsset(
-      filter: { contentful_id: { eq: "5UmikbgYwmuH0aWuFN3Zhh" } }
-    ) {
-      nodes {
-        title
+    contentfulPage(slug: { eq: "home" }) {
+      title
+      slug
+      metaDescription {
+        internal {
+          content
+        }
+      }
+      heroImage {
         fluid(maxWidth: 1800) {
           ...GatsbyContentfulFluid_withWebp_noBase64
         }
-        ogImg: resize(width: 1800) {
+        ogimg: resize(width: 1800) {
           src
           width
           height

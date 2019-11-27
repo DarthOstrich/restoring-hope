@@ -5,6 +5,7 @@ import config from '../utils/siteConfig'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import Hero from '../components/Hero'
+import Menu from '../components/Menu'
 // import PageTitle from '../components/PageTitle'
 import PageBody from '../components/PageBody'
 import SEO from '../components/SEO'
@@ -18,8 +19,9 @@ const PageTemplateInteral = ({ data, children, layout }) => {
         <title>{`${title} - ${config.siteTitle}`}</title>
       </Helmet>
       <SEO pagePath={slug} postNode={postNode} pageSEO />
-
-      <Hero title={title} image={heroImage} height={'50vh'} />
+      <Menu>
+        <Hero title={title} image={heroImage} height={'50vh'} />
+      </Menu>
       {/* <Container>{body && <PageBody body={body} />}</Container> */}
       <Container layout={layout}>{children}</Container>
     </Layout>

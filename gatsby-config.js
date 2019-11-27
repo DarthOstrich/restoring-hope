@@ -40,7 +40,7 @@ module.exports = {
           },
           {
             family: `Josefin Sans`,
-            variants: [`400`, `700`],
+            variants: [`100`, `400`, `700`],
           },
         ],
       },

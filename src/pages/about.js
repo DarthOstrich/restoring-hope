@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import config from '../utils/siteConfig'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
+import PageTemplateInternal from '../templates/pageInteral'
 import Article from '../components/Article'
 // import PageTitle from '../components/PageTitle'
 import Hero from '../components/Hero'
@@ -95,30 +96,26 @@ const About = ({ data }) => {
   } = companyInfo
 
   return (
-    <Layout>
-      <Helmet>
-        <title>{`About - ${config.siteTitle}`}</title>
-      </Helmet>
-      <SEO postNode={postNode} pagePath="about" customTitle />
-
-      <Hero title="Who We Are" image={heroImage} height={'50vh'} />
-      <Container>
-        <h1>Mission Statement</h1>
-        <Article
-          dangerouslySetInnerHTML={{
-            __html: missionStatementLong.childMarkdownRemark.html,
-          }}
-        />
-        <h1>Clinicians</h1>
-        <Clinicians clinicians={clinicians} />
-        <h1>Company History</h1>
-        <Article
-          dangerouslySetInnerHTML={{
-            __html: companyHistory.childMarkdownRemark.html,
-          }}
-        />
-      </Container>
-    </Layout>
+    <PageTemplateInternal data={data}>
+      {/* <SEO postNode={postNode} pagePath="about" customTitle /> */}
+      {/* <Helmet> */}
+      {/*   <title>{`About - ${config.siteTitle}`}</title> */}
+      {/* </Helmet> */}
+      <h1>Mission Statement</h1>
+      <Article
+        dangerouslySetInnerHTML={{
+          __html: missionStatementLong.childMarkdownRemark.html,
+        }}
+      />
+      <h1>Clinicians</h1>
+      <Clinicians clinicians={clinicians} />
+      <h1>Company History</h1>
+      <Article
+        dangerouslySetInnerHTML={{
+          __html: companyHistory.childMarkdownRemark.html,
+        }}
+      />
+    </PageTemplateInternal>
   )
 }
 
@@ -128,6 +125,12 @@ export const query = graphql`
   query {
     contentfulPage(slug: { eq: "about" }) {
       title
+      slug
+      metaDescription {
+        internal {
+          content
+        }
+      }
       heroImage {
         fluid(maxWidth: 1200) {
           ...GatsbyContentfulFluid_withWebp_noBase64
