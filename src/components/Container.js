@@ -12,15 +12,23 @@ const Wrapper = styled.main`
   // Styles for headersLeft
   flex-direction: ${props => props.headersLeft && 'row;'};
   flex-wrap: ${props => props.headersLeft && 'wrap;'};
-  @media (min-width: 475px) {
+  > h1,
+  h2 {
+		flex-grow: ${props => props.headersLeft && '0;'};
+    flex-basis: ${props => props.headersLeft && '300px;'};
+  }
+  > article, section {
+		flex-grow: ${props => props.headersLeft && '1;'};
+    flex-basis: ${props => props.headersLeft && '600px;'};
+  }
+  @media (min-width: ${({ theme }) => theme.responsive.large}) {
     > h1,
     h2 {
-      flex-basis: ${props => props.headersLeft && '33%;'};
       text-align: ${props => props.headersLeft && 'right;'};
       margin-right: ${props => props.headersLeft && '1rem;'};
     }
-    > article {
-      flex-basis: ${props => props.headersLeft && '66%;'};
+    > article, section {
+      /* flex-basis: ${props => props.headersLeft && '66%;'}; */
     }
   }
 `

@@ -96,7 +96,7 @@ const About = ({ data }) => {
   } = companyInfo
 
   return (
-    <PageTemplateInternal data={data}>
+    <PageTemplateInternal data={data} layout={'headersLeft'}>
       {/* <SEO postNode={postNode} pagePath="about" customTitle /> */}
       {/* <Helmet> */}
       {/*   <title>{`About - ${config.siteTitle}`}</title> */}

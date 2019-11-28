@@ -129,7 +129,7 @@ const StyledMenuContent = styled.nav`
 	}
 		li {
 			display: inline;
-			margin-left: 1rem;
+			margin-left: 2rem;
 		}
 	}
 `
@@ -292,7 +292,6 @@ const Menu = ({ children, heroImage }) => {
   }
 
   function handleResize() {
-    // isMobile.current = window.innerWidth < menuBreakPoint
     setWindowWidth(window.innerWidth)
   }
 
@@ -320,11 +319,6 @@ const Menu = ({ children, heroImage }) => {
         setFillNavBackground={setFillNavBackground}
       />
       {children}
-      {/* <Hero */}
-      {/*   image={heroImage} */}
-      {/*   height="50vh" */}
-      {/*   quote="Empowering wholehearted living by cultivating and embracing hope." */}
-      {/* ></Hero> */}
     </Header>
   )
 }
