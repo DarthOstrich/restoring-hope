@@ -22,7 +22,7 @@ import config from '../utils/siteConfig'
 
 // import styled from 'styled-components'
 
-const Index = ({ data, pageContext }) => {
+const Blog = ({ data, pageContext }) => {
   const posts = data.allContentfulPost.edges
   const featuredPost = posts[0].node
   const { currentPage } = pageContext
@@ -131,4 +131,4 @@ export const query = graphql`
 //   }
 // `
 
-export default Index
+export default Blog

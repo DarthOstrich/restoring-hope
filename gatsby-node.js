@@ -27,10 +27,22 @@ exports.createPages = ({ graphql, actions }) => {
         posts.slice(postsPerFirstPage).length / postsPerPage
       )
 
-      // Create main home page
+      // Create home page
       createPage({
         path: `/`,
         component: path.resolve(`./src/templates/index.js`),
+        context: {
+          limit: postsPerFirstPage,
+          skip: 0,
+          numPages: numPages + 1,
+          currentPage: 1,
+        },
+      })
+
+      // Create blog page
+      createPage({
+        path: `/blog/`,
+        component: path.resolve(`./src/templates/blog.js`),
         context: {
           limit: postsPerFirstPage,
           skip: 0,
@@ -43,7 +55,7 @@ exports.createPages = ({ graphql, actions }) => {
       Array.from({ length: numPages }).forEach((_, i) => {
         createPage({
           path: `/${i + 2}/`,
-          component: path.resolve(`./src/templates/index.js`),
+          component: path.resolve(`./src/templates/blog.js`),
           context: {
             limit: postsPerPage,
             skip: i * postsPerPage + postsPerFirstPage,
@@ -52,6 +64,31 @@ exports.createPages = ({ graphql, actions }) => {
           },
         })
       })
+      // Create main home page
+      // createPage({
+      //   path: `/`,
+      //   component: path.resolve(`./src/templates/index.js`),
+      //   context: {
+      //     limit: postsPerFirstPage,
+      //     skip: 0,
+      //     numPages: numPages + 1,
+      //     currentPage: 1,
+      //   },
+      // })
+
+      // Create additional pagination on home page if needed
+      // Array.from({ length: numPages }).forEach((_, i) => {
+      //   createPage({
+      //     path: `/${i + 2}/`,
+      //     component: path.resolve(`./src/templates/index.js`),
+      //     context: {
+      //       limit: postsPerPage,
+      //       skip: i * postsPerPage + postsPerFirstPage,
+      //       numPages: numPages + 1,
+      //       currentPage: i + 2,
+      //     },
+      //   })
+      // })
 
       // Create each individual post
       posts.forEach((edge, i) => {
