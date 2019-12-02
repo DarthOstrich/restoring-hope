@@ -132,10 +132,10 @@ export const query = graphql`
         }
       }
       heroImage {
-        fluid(maxWidth: 1200) {
+        fluid(maxWidth: 1600) {
           ...GatsbyContentfulFluid_withWebp_noBase64
         }
-        ogimg: resize(width: 1200) {
+        ogimg: resize(width: 1600) {
           src
           width
           height

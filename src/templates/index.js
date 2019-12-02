@@ -1,11 +1,18 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import Helmet from 'react-helmet'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faBrain,
+  faUsers,
+  faUser,
+  faClipboardList,
+} from '@fortawesome/free-solid-svg-icons'
 import Layout from '../components/Layout'
 import Menu from '../components/Menu'
 import Button from '../components/Button'
 // import CardList from '../components/CardList'
 // import Card from '../components/Card'
-import Helmet from 'react-helmet'
 import Container from '../components/Container'
 // import Pagination from '../components/Pagination'
 import SEO from '../components/SEO'
@@ -47,7 +54,7 @@ const CallToAction = styled.aside`
   }
 
   @media (min-width: ${props => props.theme.responsive.medium}) {
-    transform: translateY(10%);
+    transform: translateY(30%);
     blockquote {
       font-weight: 100;
       font-size: 5rem;
@@ -66,11 +73,43 @@ const Index = ({ data, pageContext }) => {
   // const isFirstPage = currentPage === 1
   const postNode = data.contentfulPage
   const { title, slug, heroImage } = data.contentfulPage
-  // const heroImage = data.allContentfulAsset.nodes[0]
   const { edges: groups } = data.allContentfulGroup
+  const {
+    addressCity,
+    addressState,
+    addressStreet,
+    addressZip,
+    officeHours,
+    phone,
+  } = data.contentfulCompanyInfo
 
   const HomeH1 = styled.h1`
     text-align: center;
+  `
+  const ServicesUl = styled.ul`
+    display: flex;
+    flex-direction: column;
+    li {
+      display: flex;
+      align-items: center;
+    }
+    svg {
+      color: ${props => props.theme.colors.highlight};
+      margin-bottom: 1rem;
+      flex-basis: 30%;
+    }
+    h2 {
+      flex-basis: 70%;
+    }
+    @media (min-width: ${props => props.theme.responsive.large}) {
+      text-align: center;
+      flex-direction: row;
+      li {
+        display: block;
+      }
+      h2 {
+      }
+    }
   `
   return (
     <Layout>
@@ -79,17 +118,12 @@ const Index = ({ data, pageContext }) => {
       </Helmet>
       <SEO pagePath={slug} postNode={postNode} pageSEO />
       <Menu>
-        <Hero image={heroImage} height={'50vh'} />
-        {/* <HomeHero */}
-        {/*   image={heroImage} */}
-        {/*   height="50vh" */}
-        {/*   quote="Empowering wholehearted living by cultivating and embracing hope." */}
-        {/* /> */}
+        <Hero image={heroImage} />
         <CallToAction>
           <blockquote>
             Empowering wholehearted living by cultivating and embracing hope.
           </blockquote>
-          <a href="tel:1-208-602-9296">
+          <a href={'tel:' + phone}>
             <Button>Call Us Now</Button>
           </a>
         </CallToAction>
@@ -101,20 +135,24 @@ const Index = ({ data, pageContext }) => {
       <Container>
         <Article direction="column">
           <HomeH1>Services</HomeH1>
-          <ul>
+          <ServicesUl>
             <li>
+              <FontAwesomeIcon icon={faUser} size="4x" />
               <h2>Individual Therapy</h2>
             </li>
             <li>
+              <FontAwesomeIcon icon={faUsers} size="4x" />
               <h2>Group Therapy</h2>
             </li>
             <li>
+              <FontAwesomeIcon icon={faBrain} size="4x" />
               <h2>Co-Occuring Disorder Treatment</h2>
             </li>
             <li>
+              <FontAwesomeIcon icon={faClipboardList} size="4x" />
               <h2>Trauma Informed Treatment</h2>
             </li>
-          </ul>
+          </ServicesUl>
         </Article>
         <Article direction="column">
           <HomeH1>Groups</HomeH1>
@@ -132,15 +170,17 @@ const Index = ({ data, pageContext }) => {
           <HomeH1>Where We Are</HomeH1>
           <h2>Office Hours</h2>
           <h3>
-            <p>9:00 AM &mdash; 5:00 PM</p>
+            <p>{officeHours}</p>
           </h3>
           <h2>Address</h2>
           <address>
             <h3>
-              <p>850 E Franklin Rd. Ste 405</p>
+              <p>{addressStreet}</p>
             </h3>
             <h3>
-              <p>Meridian, Idaho 83642</p>
+              <p>
+                {addressState} {addressCity}, {addressZip}
+              </p>
             </h3>
           </address>
         </Article>
@@ -192,6 +232,18 @@ export const query = graphql`
           height
         }
       }
+    }
+    contentfulCompanyInfo {
+      addressCity
+      addressState
+      addressStreet
+      addressZip
+      address {
+        lat
+        lon
+      }
+      officeHours
+      phone
     }
     allContentfulGroup {
       edges {

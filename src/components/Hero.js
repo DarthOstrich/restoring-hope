@@ -12,7 +12,7 @@ const BgImg = styled(Img)`
   left: 0;
   width: 100%;
   z-index: -1;
-  min-height: 300px;
+  /* min-height: 300px; */
   height: auto;
   @media (min-width: ${props => props.theme.responsive.small}) {
     height: ${props => props.height || 'auto'};
