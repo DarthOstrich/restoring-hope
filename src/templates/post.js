@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import config from '../utils/siteConfig'
+import Menu from '../components/Menu'
 import Layout from '../components/Layout'
 import Hero from '../components/Hero'
 import Container from '../components/Container'
@@ -30,9 +31,10 @@ const PostTemplate = ({ data, pageContext }) => {
       <Helmet>
         <title>{`${title} - ${config.siteTitle}`}</title>
       </Helmet>
+      <Menu />
       <SEO pagePath={slug} postNode={postNode} postSEO />
 
-      {/* <Hero title={title} image={heroImage} height={'50vh'} /> */}
+      <Hero title={title} image={heroImage} height={'50vh'} />
 
       <Container>
         {tags && <TagList tags={tags} />}

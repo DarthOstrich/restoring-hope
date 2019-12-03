@@ -3,16 +3,18 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
-const Post = styled.li`
+const Post = styled.section`
   position: relative;
-  border: 1px solid ${props => props.theme.colors.secondary};
-  border-radius: 2px;
-  margin: 0 0 1em 0;
+  /* border: 1px solid ${props => props.theme.colors.secondary}; */
+  /* border-radius: 2px; */
+  margin: auto;
+	padding: 1rem;
   width: 100%;
+	max-width: ${props => props.theme.sizes.maxWidth};
   transition: background 0.2s;
   @media screen and (min-width: ${props => props.theme.responsive.small}) {
     flex: ${props => (props.featured ? '0 0 100%' : '0 0 49%')};
-    margin: 0 0 2vw 0;
+    /* margin: 0 0 2vw 0; */
   }
   @media screen and (min-width: ${props => props.theme.responsive.medium}) {
     flex: ${props => (props.featured ? '0 0 100%' : '0 0 32%')};
@@ -71,19 +73,21 @@ const Card = ({
   ...props
 }) => {
   return (
-    <Post featured={props.featured}>
-      <Link to={`/${slug}/`}>
-        <Img fluid={heroImage.fluid} backgroundColor={'#eeeeee'} />
-        <Title>{title}</Title>
-        <Date>{publishDate}</Date>
-        <ReadingTime>{timeToRead} min read</ReadingTime>
-        <Excerpt
-          dangerouslySetInnerHTML={{
-            __html: body.childMarkdownRemark.excerpt,
-          }}
-        />
-      </Link>
-    </Post>
+    <>
+      <Img fluid={heroImage.fluid} backgroundColor={'#eeeeee'} />
+      <Post featured={props.featured}>
+        <Link to={`/${slug}/`}>
+          <Title>{title}</Title>
+          <Date>{publishDate}</Date>
+          <ReadingTime>{timeToRead} min read</ReadingTime>
+          <Excerpt
+            dangerouslySetInnerHTML={{
+              __html: body.childMarkdownRemark.excerpt,
+            }}
+          />
+        </Link>
+      </Post>
+    </>
   )
 }
 

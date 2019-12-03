@@ -5,7 +5,7 @@ import theme from '../styles/theme'
 import Hero from '../components/Hero'
 
 const Header = styled.header`
-	background: transparent;
+	/* background: transparent; */
   /* background: ${props => props.theme.colors.base}; */
   width: 100%;
   /* padding: 2rem; */
@@ -84,14 +84,14 @@ const StyledMenu = styled.div`
   z-index: ${({ open }) => (open ? '100' : '0')};
   background: ${props => props.theme.colors.secondary};
   transform: ${({ open }) => (open ? 'translatex(0)' : 'translatex(-100%)')};
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   @media (min-width: 426px) {
     text-align: left;
     z-index: 10;
     transform: translateX(0);
     margin-top: 0;
     background: ${({ fillNavBackground, theme }) =>
-      fillNavBackground ? theme.colors.secondary : 'transparent'};
+      fillNavBackground ? theme.colors.secondary : 'rgba(0,0,0,0.25);'};
   }
 `
 
@@ -226,11 +226,12 @@ const Logo = styled.img`
   max-width: 50px;
 `
 
-const Menu = ({ children, heroImage }) => {
+const Menu = props => {
+  const { children, heroImage, solid } = props
   let menuBreakPoint = 426
   // set initial state using React hooks
   const [open, setOpen] = useState(false)
-  const [fillNavBackground, setFillNavBackground] = useState(false)
+  const [fillNavBackground, setFillNavBackground] = useState(solid)
   const [windowWidth, setWindowWidth] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   // let isMobile
@@ -283,6 +284,9 @@ const Menu = ({ children, heroImage }) => {
   }
 
   function handleScroll() {
+    if (solid) {
+      return
+    }
     const position = getScrollPosition()
     if (position.y > 50) {
       setFillNavBackground(true)

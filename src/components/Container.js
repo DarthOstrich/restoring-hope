@@ -21,6 +21,7 @@ const Wrapper = styled.main`
 		flex-grow: ${props => props.headersLeft && '1;'};
     flex-basis: ${props => props.headersLeft && '600px;'};
   }
+	margin-top: ${props => props.noHero && '100px;'}
   @media (min-width: ${({ theme }) => theme.responsive.large}) {
     > h1,
     h2 {
@@ -35,7 +36,12 @@ const Wrapper = styled.main`
 
 const Container = props => {
   const headersLeft = props.layout === 'headersLeft' ? true : false
-  return <Wrapper headersLeft={headersLeft}>{props.children}</Wrapper>
+  const noHero = props.noHero ? true : false
+  return (
+    <Wrapper headersLeft={headersLeft} noHero={noHero}>
+      {props.children}
+    </Wrapper>
+  )
 }
 
 export default Container
