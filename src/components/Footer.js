@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import logoTypo from '../../static/logos/RH-LogoType-Black.png'
 
 const Wrapper = styled.footer`
   display: flex;
@@ -46,11 +47,20 @@ const Container = styled.div`
 //     }
 //   }
 // `
-
+const date = new Date()
 const Footer = () => (
   <Wrapper>
     <Container>
-      <p>footer</p>
+      <center>
+        <img
+          src={'/logos/RH-FullLogo-Black.png'}
+          style={{ maxWidth: '200px', margin: '2rem' }}
+        />
+        <p>
+          Copyright &copy; {date.getFullYear()} Restoring Hope - Healing from
+          Trauma and Addiction, LLC
+        </p>
+      </center>
     </Container>
   </Wrapper>
 )

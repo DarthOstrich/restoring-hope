@@ -27,6 +27,11 @@ const ArticleWithStyledList = styled(Article)`
   }
 `
 
+const GroupUl = styled.ul`
+  @media (min-width: ${props => props.theme.responsive.medium}) {
+    column-count: 2;
+  }
+`
 const Services = ({ data }) => {
   // const postNode = {
   //   title: `Services - ${config.siteTitle}`,
@@ -64,7 +69,7 @@ const Services = ({ data }) => {
       })}
       <h1>Groups Offered</h1>
       <Article>
-        <ul>
+        <GroupUl>
           {groups.map(({ node: group }) => {
             return (
               <li key={group.title}>
@@ -72,7 +77,7 @@ const Services = ({ data }) => {
               </li>
             )
           })}
-        </ul>
+        </GroupUl>
       </Article>
       <h1>Criteria For Admission</h1>
       <ArticleWithStyledList
