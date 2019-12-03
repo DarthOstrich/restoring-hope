@@ -17,8 +17,8 @@ import Button from '../components/Button'
 import Container from '../components/Container'
 // import Pagination from '../components/Pagination'
 import SEO from '../components/SEO'
-import config from '../utils/siteConfig'
-import HomeHero from '../components/HomeHero'
+// import config from '../utils/siteConfig'
+// import HomeHero from '../components/HomeHero'
 import Hero from '../components/Hero'
 
 import styled from 'styled-components'
@@ -139,7 +139,7 @@ const Index = ({ data, pageContext }) => {
       </Helmet>
       <SEO pagePath={slug} postNode={postNode} pageSEO />
       <Menu>
-        <Hero image={heroImage} />
+        <Hero image={heroImage} height={'50vh'} />
         <CallToAction>
           <blockquote>
             Empowering wholehearted living by cultivating and embracing hope.
