@@ -85,7 +85,7 @@ const StyledMenu = styled.div`
   background: ${props => props.theme.colors.secondary};
   transform: ${({ open }) => (open ? 'translatex(0)' : 'translatex(-100%)')};
   transition: all 0.3s ease-in-out;
-  @media (min-width: 426px) {
+  @media (min-width: ${props => props.theme.sizes.menuBreakPointOne}) {
     text-align: left;
     z-index: 10;
     transform: translateX(0);
@@ -118,7 +118,7 @@ const StyledMenuContent = styled.nav`
     }
 	}
 
-	@media (min-width: 426px) {
+  @media (min-width: ${props => props.theme.sizes.menuBreakPointOne}) {
 		flex-direction: row;
     z-index: 10;
 		justify-content: space-between;
@@ -216,11 +216,15 @@ const BurgerWrapper = styled.div`
   background: ${props =>
     props.fillNavBackground ? props.theme.colors.secondary : 'transparent'};
   align-items: center;
-  @media (min-width: 426px) {
+  @media (min-width: ${props => props.theme.sizes.menuBreakPointOne}) {
     display: none;
   }
 `
-
+const LogoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+`
 const Logo = styled.img`
   width: 100%;
   max-width: 50px;
@@ -228,7 +232,7 @@ const Logo = styled.img`
 
 const Menu = props => {
   const { children, heroImage, solid } = props
-  let menuBreakPoint = 426
+  let menuBreakPoint = 769
   // set initial state using React hooks
   const [open, setOpen] = useState(false)
   const [fillNavBackground, setFillNavBackground] = useState(solid)
@@ -307,7 +311,13 @@ const Menu = props => {
           setFillNavBackground={setFillNavBackground}
         >
           <Link to="/" activeStyle={activeLinkStyle}>
-            <Logo src="/logos/RH-vector-logo-color.png" />
+            <LogoWrapper>
+              <Logo src="/logos/RH-vector-logo-color.png" />
+              <img
+                src="/logos/RH-LogoType-Green.png"
+                style={{ maxWidth: '200px' }}
+              />
+            </LogoWrapper>
           </Link>
           <Burger
             open={open}
