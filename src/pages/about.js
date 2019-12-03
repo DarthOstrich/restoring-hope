@@ -23,7 +23,10 @@ const ClinicianBio = styled(Article)`
     flex-basis: 33%;
   }
   aside {
-    flex-basis: 33%;
+    flex-basis: 100%;
+    ul {
+      column-count: 2;
+    }
   }
 `
 
@@ -42,6 +45,8 @@ const formatAgeGroup = groups => {
 const Clinician = ({ clinician }) => {
   const BioPic = styled(Img)`
     border-radius: 50%;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
   `
   const { name, title, ageGroup, specialties, profilePicture } = clinician
   return (
@@ -50,13 +55,9 @@ const Clinician = ({ clinician }) => {
       <section>
         <h2>{name}</h2>
         <h4>{title}</h4>
-        <p>{formatAgeGroup(ageGroup)}</p>
-        {/* <p>Age Group: </p> */}
-        {/* <ul> */}
-        {/*   {ageGroup.map(group => ( */}
-        {/*     <li key={group}>{group}</li> */}
-        {/*   ))} */}
-        {/* </ul> */}
+        <p>
+          <strong>Age Groups:</strong> {formatAgeGroup(ageGroup)}
+        </p>
       </section>
       <aside>
         <h3>Specialties</h3>

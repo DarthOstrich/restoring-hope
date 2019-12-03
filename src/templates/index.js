@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 import Helmet from 'react-helmet'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -66,6 +67,53 @@ const CallToAction = styled.aside`
     }
   }
 `
+const HomeH1 = styled.h1`
+  text-align: center;
+`
+const ServicesUl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  li {
+    display: flex;
+    align-items: center;
+  }
+  svg {
+    color: ${props => props.theme.colors.highlight};
+    margin-bottom: 1rem;
+    flex-basis: 30%;
+  }
+  h2 {
+    flex-basis: 70%;
+  }
+  @media (min-width: ${props => props.theme.responsive.large}) {
+    text-align: center;
+    flex-direction: row;
+    li {
+      display: block;
+    }
+    h2 {
+    }
+  }
+`
+const GroupUl = styled.ul`
+  @media (min-width: ${props => props.theme.responsive.medium}) {
+    column-count: 2;
+  }
+`
+const WhereSection = styled.section`
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  @media (min-width: ${props => props.theme.responsive.medium}) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    > div,
+    aside {
+      width: 50%;
+    }
+  }
+`
 const Index = ({ data, pageContext }) => {
   // const posts = data.allContentfulPost.edges
   // const featuredPost = posts[0].node
@@ -81,36 +129,9 @@ const Index = ({ data, pageContext }) => {
     addressZip,
     officeHours,
     phone,
+    exteriorPhoto,
   } = data.contentfulCompanyInfo
 
-  const HomeH1 = styled.h1`
-    text-align: center;
-  `
-  const ServicesUl = styled.ul`
-    display: flex;
-    flex-direction: column;
-    li {
-      display: flex;
-      align-items: center;
-    }
-    svg {
-      color: ${props => props.theme.colors.highlight};
-      margin-bottom: 1rem;
-      flex-basis: 30%;
-    }
-    h2 {
-      flex-basis: 70%;
-    }
-    @media (min-width: ${props => props.theme.responsive.large}) {
-      text-align: center;
-      flex-direction: row;
-      li {
-        display: block;
-      }
-      h2 {
-      }
-    }
-  `
   return (
     <Layout>
       <Helmet>
@@ -156,7 +177,7 @@ const Index = ({ data, pageContext }) => {
         </Article>
         <Article direction="column">
           <HomeH1>Groups</HomeH1>
-          <ul>
+          <GroupUl>
             {groups.map(({ node: group }) => {
               return (
                 <li key={group.title}>
@@ -164,50 +185,32 @@ const Index = ({ data, pageContext }) => {
                 </li>
               )
             })}
-          </ul>
+          </GroupUl>
         </Article>
         <Article direction="column">
           <HomeH1>Where We Are</HomeH1>
-          <h2>Office Hours</h2>
-          <h3>
-            <p>{officeHours}</p>
-          </h3>
-          <h2>Address</h2>
-          <address>
-            <h3>
-              <p>{addressStreet}</p>
-            </h3>
-            <h3>
-              <p>
-                {addressState} {addressCity}, {addressZip}
-              </p>
-            </h3>
-          </address>
+          <WhereSection>
+            <aside>
+              <h2>Office Hours</h2>
+              <h3>
+                <p>{officeHours}</p>
+              </h3>
+              <h2>Address</h2>
+              <address>
+                <h3>
+                  <p>{addressStreet}</p>
+                </h3>
+                <h3>
+                  <p>
+                    {addressState} {addressCity}, {addressZip}
+                  </p>
+                </h3>
+              </address>
+            </aside>
+            <Img fluid={exteriorPhoto.fluid} alt="exterior of Restoring Hope" />
+          </WhereSection>
         </Article>
       </Container>
-
-      {/* {!isFirstPage && ( */}
-      {/*   <Helmet> */}
-      {/*     <title>{`${config.siteTitle} - Page ${currentPage}`}</title> */}
-      {/*   </Helmet> */}
-      {/* )} */}
-      {/* <Container> */}
-      {/*   {isFirstPage ? ( */}
-      {/*     <CardList> */}
-      {/*       <Card {...featuredPost} featured /> */}
-      {/*       {posts.slice(1).map(({ node: post }) => ( */}
-      {/*         <Card key={post.id} {...post} /> */}
-      {/*       ))} */}
-      {/*     </CardList> */}
-      {/*   ) : ( */}
-      {/*     <CardList> */}
-      {/*       {posts.map(({ node: post }) => ( */}
-      {/*         <Card key={post.id} {...post} /> */}
-      {/*       ))} */}
-      {/*     </CardList> */}
-      {/*   )} */}
-      {/* </Container> */}
-      {/* <Pagination context={pageContext} /> */}
     </Layout>
   )
 }
@@ -244,6 +247,16 @@ export const query = graphql`
       }
       officeHours
       phone
+      exteriorPhoto {
+        fluid(maxWidth: 1800) {
+          ...GatsbyContentfulFluid_withWebp_noBase64
+        }
+        ogimg: resize(width: 1800) {
+          src
+          width
+          height
+        }
+      }
     }
     allContentfulGroup {
       edges {

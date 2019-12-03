@@ -143,6 +143,9 @@ const GlobalStyle = createGlobalStyle`
 	ol, ul, li {
 		margin-bottom: 1rem;
 	}
+	strong {
+		font-weight: bold;
+	}
 
 
 `
