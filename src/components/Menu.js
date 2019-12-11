@@ -117,6 +117,9 @@ const StyledMenuContent = styled.nav`
       font-weight: bold;
     }
 	}
+	img {
+	 display: none;
+	}
 
   @media (min-width: ${props => props.theme.sizes.menuBreakPointOne}) {
 		flex-direction: row;
@@ -131,6 +134,9 @@ const StyledMenuContent = styled.nav`
 			display: inline;
 			margin-left: 2rem;
 		}
+	img {
+	 display: block;
+	}
 	}
 `
 
@@ -151,11 +157,9 @@ const NavMenu = ({ open, fillNavBackground, windowWidth, menuBreakPoint }) => {
       render={({ contentfulCompanyInfo }) => (
         <StyledMenu open={open} fillNavBackground={fillNavBackground}>
           <StyledMenuContent>
-            {windowWidth > menuBreakPoint && (
-              <Link to="/" activeStyle={activeLinkStyle}>
-                <Logo src="/logos/RH-vector-logo-color.png" />
-              </Link>
-            )}
+            <Link to="/" activeStyle={activeLinkStyle}>
+              <Logo src="/logos/RH-vector-logo-color.png" />
+            </Link>
             <ul>
               <li>
                 <Link to="/services/" activeStyle={activeLinkStyle}>
