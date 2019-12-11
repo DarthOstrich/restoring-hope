@@ -21,8 +21,8 @@ const Wrapper = styled.main`
 		flex-grow: ${props => props.headersLeft && '1;'};
     flex-basis: ${props => props.headersLeft && '600px;'};
   }
-	margin-top: ${props => props.noHero && '100px;'}
-  @media (min-width: ${({ theme }) => theme.responsive.large}) {
+	margin-top: ${props => props.noHero && '100px;'};
+  @media screen and (min-width: ${props => props.theme.responsive.large}) {
     > h1,
     h2 {
       text-align: ${props => props.headersLeft && 'right;'};

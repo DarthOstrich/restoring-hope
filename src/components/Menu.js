@@ -134,12 +134,7 @@ const StyledMenuContent = styled.nav`
 	}
 `
 
-const NavMenu = ({ open, fillNavBackground }) => {
-  // const isBrowser = typeof window !== 'undefined'
-  // let isMobile = false
-  // if (isBrowser) {
-  //   isMobile = window.innerWidth < 426
-  // }
+const NavMenu = ({ open, fillNavBackground, windowWidth, menuBreakPoint }) => {
   const pages = ['about', 'contact', 'resources', 'services', 'forms']
 
   return (
@@ -156,9 +151,11 @@ const NavMenu = ({ open, fillNavBackground }) => {
       render={({ contentfulCompanyInfo }) => (
         <StyledMenu open={open} fillNavBackground={fillNavBackground}>
           <StyledMenuContent>
-            <Link to="/" activeStyle={activeLinkStyle}>
-              <Logo src="/logos/RH-vector-logo-color.png" />
-            </Link>
+            {windowWidth > menuBreakPoint && (
+              <Link to="/" activeStyle={activeLinkStyle}>
+                <Logo src="/logos/RH-vector-logo-color.png" />
+              </Link>
+            )}
             <ul>
               <li>
                 <Link to="/services/" activeStyle={activeLinkStyle}>
@@ -175,11 +172,11 @@ const NavMenu = ({ open, fillNavBackground }) => {
                   Resources
                 </Link>
               </li>
-              {/* <li> */}
-              {/*   <Link to="/contact/" activeStyle={activeLinkStyle}> */}
-              {/*     Contact */}
-              {/*   </Link> */}
-              {/* </li> */}
+              <li>
+                <Link to="/contact/" activeStyle={activeLinkStyle}>
+                  Contact
+                </Link>
+              </li>
               <li>
                 <Link to="/forms/" activeStyle={activeLinkStyle}>
                   Forms
@@ -232,7 +229,9 @@ const Logo = styled.img`
 
 const Menu = props => {
   const { children, heroImage, solid } = props
-  let menuBreakPoint = 769
+  let menuBreakPointOneString = theme.sizes.menuBreakPointOne.match(/\d/g)
+  let menuBreakPoint = parseInt(menuBreakPointOneString.join(''))
+
   // set initial state using React hooks
   const [open, setOpen] = useState(false)
   const [fillNavBackground, setFillNavBackground] = useState(solid)
@@ -331,6 +330,8 @@ const Menu = props => {
         setOpen={setOpen}
         fillNavBackground={fillNavBackground}
         setFillNavBackground={setFillNavBackground}
+        windowWidth={windowWidth}
+        menuBreakPoint={menuBreakPoint}
       />
       {children}
     </Header>

@@ -28,6 +28,9 @@ const ClinicianBio = styled(Article)`
       column-count: 2;
     }
   }
+  h2 {
+    text-align: left;
+  }
 `
 
 const formatAgeGroup = groups => {

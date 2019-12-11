@@ -11,7 +11,7 @@ const theme = {
   sizes: {
     maxWidth: '1200px',
     maxWidthCentered: '650px',
-    menuBreakPointOne: '769px',
+    menuBreakPointOne: '880px',
   },
   responsive: {
     small: '411px',
