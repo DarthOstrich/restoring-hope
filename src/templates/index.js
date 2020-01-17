@@ -130,6 +130,7 @@ const Index = ({ data, pageContext }) => {
     officeHours,
     phone,
     exteriorPhoto,
+    missionStatementShort,
   } = data.contentfulCompanyInfo
 
   return (
@@ -141,9 +142,7 @@ const Index = ({ data, pageContext }) => {
       <Menu>
         <Hero image={heroImage} height={'50vh'} />
         <CallToAction>
-          <blockquote>
-            Empowering wholehearted living by cultivating and embracing hope.
-          </blockquote>
+          <blockquote>{missionStatementShort}</blockquote>
           <a href={'tel:' + phone}>
             <Button>Call Us Now</Button>
           </a>
@@ -247,6 +246,7 @@ export const query = graphql`
       }
       officeHours
       phone
+      missionStatementShort
       exteriorPhoto {
         fluid(maxWidth: 1800) {
           ...GatsbyContentfulFluid_withWebp_noBase64
