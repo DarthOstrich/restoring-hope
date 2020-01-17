@@ -165,7 +165,7 @@ export const query = graphql`
         }
       }
     }
-    allContentfulClinician {
+    allContentfulClinician(sort: { fields: order, order: ASC }) {
       edges {
         node {
           contentful_id
