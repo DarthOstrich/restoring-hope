@@ -25,6 +25,7 @@ import styled from 'styled-components'
 const Article = styled.article`
   display: flex;
   flex-direction: ${props => (props.direction ? props.direction : null)};
+  padding: 20px 0px;
 `
 
 const CallToAction = styled.aside`
@@ -114,6 +115,16 @@ const WhereSection = styled.section`
     }
   }
 `
+
+const UnstyledLink = styled.a`
+  font-weight: inherit;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  &:hover {
+    color: black;
+  }
+`
 const Index = ({ data, pageContext }) => {
   // const posts = data.allContentfulPost.edges
   // const featuredPost = posts[0].node
@@ -131,6 +142,7 @@ const Index = ({ data, pageContext }) => {
     phone,
     exteriorPhoto,
     missionStatementShort,
+    missionStatementLong,
   } = data.contentfulCompanyInfo
 
   return (
@@ -154,38 +166,56 @@ const Index = ({ data, pageContext }) => {
       {/* </Helmet> */}
       <Container>
         <Article direction="column">
+          <HomeH1>Mission Statement</HomeH1>
+          <p>{missionStatementLong.missionStatementLong}</p>
+        </Article>
+        <Article direction="column">
+          <HomeH1>Core Values</HomeH1>
+          <h2 style={{ textAlign: 'center' }}>
+            Hope, Compassion, Transparency &amp; Empowerment
+          </h2>
+        </Article>
+        <Article direction="column">
           <HomeH1>Services</HomeH1>
           <ServicesUl>
             <li>
-              <FontAwesomeIcon icon={faUser} size="4x" />
-              <h2>Individual Therapy</h2>
+              <UnstyledLink href="/services#trauma-informed">
+                <FontAwesomeIcon icon={faClipboardList} size="4x" />
+                <h2>Trauma Informed Treatment</h2>
+              </UnstyledLink>
             </li>
             <li>
-              <FontAwesomeIcon icon={faUsers} size="4x" />
-              <h2>Group Therapy</h2>
+              <UnstyledLink href="/services#individual">
+                <FontAwesomeIcon icon={faUser} size="4x" />
+                <h2>Individual Therapy</h2>
+              </UnstyledLink>
             </li>
             <li>
-              <FontAwesomeIcon icon={faBrain} size="4x" />
-              <h2>Co-Occuring Disorder Treatment</h2>
+              <UnstyledLink href="/services#intensive">
+                <FontAwesomeIcon icon={faBrain} size="4x" />
+                <h2>IOP/OP Treatment</h2>
+              </UnstyledLink>
             </li>
             <li>
-              <FontAwesomeIcon icon={faClipboardList} size="4x" />
-              <h2>Trauma Informed Treatment</h2>
+              <UnstyledLink href="/services#group">
+                <FontAwesomeIcon icon={faUsers} size="4x" />
+                <h2>Group Therapy</h2>
+              </UnstyledLink>
             </li>
           </ServicesUl>
         </Article>
-        <Article direction="column">
-          <HomeH1>Groups</HomeH1>
-          <GroupUl>
-            {groups.map(({ node: group }) => {
-              return (
-                <li key={group.title}>
-                  <h2>{group.title}</h2>
-                </li>
-              )
-            })}
-          </GroupUl>
-        </Article>
+        {/* <Article direction="column"> */}
+        {/*   <HomeH1>Groups</HomeH1> */}
+        {/*   <GroupUl> */}
+        {/*     {groups.map(({ node: group }) => { */}
+        {/*       return ( */}
+        {/*         <li key={group.title}> */}
+        {/*           <h2>{group.title}</h2> */}
+        {/*         </li> */}
+        {/*       ) */}
+        {/*     })} */}
+        {/*   </GroupUl> */}
+        {/* </Article> */}
         <Article direction="column">
           <HomeH1>Where We Are</HomeH1>
           <WhereSection>
@@ -246,6 +276,9 @@ export const query = graphql`
       }
       officeHours
       phone
+      missionStatementLong {
+        missionStatementLong
+      }
       missionStatementShort
       exteriorPhoto {
         fluid(maxWidth: 1800) {
@@ -267,36 +300,5 @@ export const query = graphql`
     }
   }
 `
-// export const query = graphql`
-//   query($skip: Int!, $limit: Int!) {
-//     allContentfulPost(
-//       sort: { fields: [publishDate], order: DESC }
-//       limit: $limit
-//       skip: $skip
-//     ) {
-//       edges {
-//         node {
-//           title
-//           id
-//           slug
-//           publishDate(formatString: "MMMM DD, YYYY")
-//           heroImage {
-//             title
-//             fluid(maxWidth: 1800) {
-//               ...GatsbyContentfulFluid_withWebp_noBase64
-//             }
-//           }
-//           body {
-//             childMarkdownRemark {
-//               timeToRead
-//               html
-//               excerpt(pruneLength: 80)
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// `
 
 export default Index

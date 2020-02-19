@@ -50,8 +50,12 @@ const Container = styled.div`
 const date = new Date()
 const Footer = () => (
   <Wrapper>
-    <Container>
+    <Container style={{ padding: '20px 0px' }}>
       <center>
+        <p>
+          Now accepting Medicaid, BPA funding, and private insurance (call today
+          for a list of in-network insurance providers)
+        </p>
         <img
           src={'/logos/RH-FullLogo-Black.png'}
           style={{ maxWidth: '200px', margin: '2rem' }}

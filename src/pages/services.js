@@ -46,6 +46,10 @@ const Services = ({ data }) => {
   const { edges: groups } = data.allContentfulGroup
   //
   // const { heroImage } = data.contentfulPage
+  const titleToId = function(title) {
+    const array = title.split(' ')
+    return array[0].toLowerCase()
+  }
   return (
     <PageTemplateInternal data={data} layout={'headersLeft'}>
       <h1>Overview of Services</h1>
@@ -55,9 +59,10 @@ const Services = ({ data }) => {
         }}
       />
       {services.map(({ node }) => {
+        const htmlId = titleToId(node.title)
         return (
           <React.Fragment key={node.title}>
-            <h2>{node.title}</h2>
+            <h2 id={htmlId}>{node.title}</h2>
             <Article
               dangerouslySetInnerHTML={{
                 __html: node.description.childMarkdownRemark.html,
@@ -67,30 +72,18 @@ const Services = ({ data }) => {
           </React.Fragment>
         )
       })}
-      <h1>Groups Offered</h1>
-      <Article>
-        <GroupUl>
-          {groups.map(({ node: group }) => {
-            return (
-              <li key={group.title}>
-                <h4>{group.title}</h4>
-              </li>
-            )
-          })}
-        </GroupUl>
-      </Article>
-      <h1>Criteria For Admission</h1>
-      <ArticleWithStyledList
-        dangerouslySetInnerHTML={{
-          __html: generalAdmissionCriteria.childMarkdownRemark.html,
-        }}
-      />
-      <h2>Behavioral Health Admission Criteria</h2>
-      <Article
-        dangerouslySetInnerHTML={{
-          __html: behavioralAdmissionCriteria.childMarkdownRemark.html,
-        }}
-      />
+      {/* <h1>Groups Offered</h1> */}
+      {/* <Article> */}
+      {/*   <GroupUl> */}
+      {/*     {groups.map(({ node: group }) => { */}
+      {/*       return ( */}
+      {/*         <li key={group.title}> */}
+      {/*           <h4>{group.title}</h4> */}
+      {/*         </li> */}
+      {/*       ) */}
+      {/*     })} */}
+      {/*   </GroupUl> */}
+      {/* </Article> */}
     </PageTemplateInternal>
   )
 }
@@ -136,7 +129,7 @@ export const query = graphql`
         }
       }
     }
-    allContentfulService {
+    allContentfulService(sort: { order: ASC, fields: order }) {
       edges {
         node {
           id

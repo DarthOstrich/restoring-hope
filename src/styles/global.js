@@ -146,6 +146,12 @@ const GlobalStyle = createGlobalStyle`
 	strong {
 		font-weight: bold;
 	}
+  article ul, article ol {
+    li {
+      list-style: disc;
+      margin-left: 2rem;
+    }
+  }
 
 
 `
