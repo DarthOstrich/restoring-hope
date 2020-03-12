@@ -53,11 +53,13 @@ const CallToAction = styled.aside`
     color: ${props => props.theme.colors.white};
   }
   @media (min-width: ${props => props.theme.responsive.small}) {
+    margin-top: 9rem;
     height: ${props => props.height || 'auto'};
   }
 
   @media (min-width: ${props => props.theme.responsive.medium}) {
     transform: translateY(30%);
+    margin-top: 0;
     blockquote {
       font-weight: 100;
       font-size: 5rem;
@@ -168,7 +170,7 @@ const Index = ({ data, pageContext }) => {
         <CallToAction>
           <blockquote>Restoring Hope</blockquote>
           <a href={'tel:' + phone}>
-            <Button>Call Us Now</Button>
+            <Button outline={true}>Call Us Now</Button>
           </a>
         </CallToAction>
       </Menu>
