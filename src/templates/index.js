@@ -180,7 +180,7 @@ const Index = ({ data, pageContext }) => {
       {/* </Helmet> */}
       <Container>
         <Article direction="column">
-          <HomeH1>Mission Statement</HomeH1>
+          <HomeH1>Vision Statement</HomeH1>
           <HomeH2>{missionStatementShort}</HomeH2>
         </Article>
         <Article direction="column">
