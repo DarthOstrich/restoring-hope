@@ -104,7 +104,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 	// Typography
 	h1 {
-		font-size: 2.133rem
+		font-size: 2.8rem
 		text-transform: uppercase;
 		letter-spacing: 0.1rem;
 	}

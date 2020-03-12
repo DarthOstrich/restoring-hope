@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import styled from 'styled-components'
+import Truncate from 'react-truncate'
 import config from '../utils/siteConfig'
 import PageTemplateInternal from '../templates/pageInteral'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import Article from '../components/Article'
+import { ButtonStyle } from '../components/Button'
 // import PageTitle from '../components/PageTitle'
 import Hero from '../components/Hero'
 import SEO from '../components/SEO'
@@ -32,18 +34,59 @@ const GroupUl = styled.ul`
     column-count: 2;
   }
 `
+
+const TruncatedArticle = styled.article`
+  position: relative;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  max-height: ${props => (!props.expanded ? '10rem' : `${props.maxHeight}px`)};
+  margin-bottom: 4rem;
+`
+const ReadMoreBlock = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(0deg, #f2f2f2, transparent);
+  width: 100%;
+  text-align: right;
+  padding: 1rem;
+`
+
+const TruncatedText = ({ html, id }) => {
+  const ref = useRef()
+  const [expanded, setExpanded] = useState(false)
+  const [maxHeight, setMaxHeight] = useState()
+
+  useLayoutEffect(() => {
+    // do something
+    setMaxHeight(ref.current.clientHeight)
+  }, [ref.current])
+
+  return (
+    <TruncatedArticle expanded={expanded} maxHeight={maxHeight}>
+      <div
+        style={{ paddingBottom: '4rem' }}
+        dangerouslySetInnerHTML={{
+          __html: html,
+        }}
+        key={id}
+        ref={ref}
+      />
+      <ReadMoreBlock>
+        <ButtonStyle onClick={() => setExpanded(!expanded)}>
+          Read {expanded ? 'Less' : 'More'}
+        </ButtonStyle>
+      </ReadMoreBlock>
+    </TruncatedArticle>
+  )
+}
 const Services = ({ data }) => {
   // const postNode = {
   //   title: `Services - ${config.siteTitle}`,
   // }
   //
-  const {
-    servicesOverview,
-    generalAdmissionCriteria,
-    behavioralAdmissionCriteria,
-  } = data.contentfulCompanyInfo
+  const { servicesOverview } = data.contentfulCompanyInfo
   const { edges: services } = data.allContentfulService
-  const { edges: groups } = data.allContentfulGroup
   //
   // const { heroImage } = data.contentfulPage
   const titleToId = function(title) {
@@ -63,27 +106,13 @@ const Services = ({ data }) => {
         return (
           <React.Fragment key={node.title}>
             <h2 id={htmlId}>{node.title}</h2>
-            <Article
-              dangerouslySetInnerHTML={{
-                __html: node.description.childMarkdownRemark.html,
-              }}
-              key={node.id}
+            <TruncatedText
+              html={node.description.childMarkdownRemark.html}
+              id={node.id}
             />
           </React.Fragment>
         )
       })}
-      {/* <h1>Groups Offered</h1> */}
-      {/* <Article> */}
-      {/*   <GroupUl> */}
-      {/*     {groups.map(({ node: group }) => { */}
-      {/*       return ( */}
-      {/*         <li key={group.title}> */}
-      {/*           <h4>{group.title}</h4> */}
-      {/*         </li> */}
-      {/*       ) */}
-      {/*     })} */}
-      {/*   </GroupUl> */}
-      {/* </Article> */}
     </PageTemplateInternal>
   )
 }

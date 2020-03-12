@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const ButtonStyle = styled.button`
+export const ButtonStyle = styled.button`
   cursor: pointer;
   background: ${props =>
     props.outline ? 'transparent' : props.theme.colors.highlight};
@@ -18,7 +18,9 @@ const ButtonStyle = styled.button`
 `
 
 const Button = props => {
-  return <ButtonStyle outline>{props.children}</ButtonStyle>
+  return (
+    <ButtonStyle outline={props.outline || null}>{props.children}</ButtonStyle>
+  )
 }
 
 export default Button

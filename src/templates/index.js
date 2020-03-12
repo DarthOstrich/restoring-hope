@@ -20,6 +20,7 @@ import SEO from '../components/SEO'
 // import config from '../utils/siteConfig'
 // import HomeHero from '../components/HomeHero'
 import Hero from '../components/Hero'
+import logo from '../../static/logos/RH-vector-logo-color.png'
 
 import styled from 'styled-components'
 const Article = styled.article`
@@ -69,14 +70,25 @@ const CallToAction = styled.aside`
   }
 `
 const HomeH1 = styled.h1`
+  margin: 4rem auto;
   text-align: center;
+`
+const HomeH2 = styled.h2`
+  margin: 4rem auto;
+  text-align: center;
+`
+const ServicesLogo = styled.img`
+  max-width: 10rem;
+  margin: auto;
 `
 const ServicesUl = styled.ul`
   display: flex;
   flex-direction: column;
+  align-items: center;
   li {
     display: flex;
     align-items: center;
+    margin: 0;
   }
   svg {
     color: ${props => props.theme.colors.highlight};
@@ -154,7 +166,7 @@ const Index = ({ data, pageContext }) => {
       <Menu>
         <Hero image={heroImage} height={'50vh'} />
         <CallToAction>
-          <blockquote>{missionStatementShort}</blockquote>
+          <blockquote>Restoring Hope</blockquote>
           <a href={'tel:' + phone}>
             <Button>Call Us Now</Button>
           </a>
@@ -167,39 +179,43 @@ const Index = ({ data, pageContext }) => {
       <Container>
         <Article direction="column">
           <HomeH1>Mission Statement</HomeH1>
-          <p>{missionStatementLong.missionStatementLong}</p>
+          <HomeH2>{missionStatementShort}</HomeH2>
         </Article>
         <Article direction="column">
           <HomeH1>Core Values</HomeH1>
-          <h2 style={{ textAlign: 'center' }}>
-            Hope, Compassion, Transparency &amp; Empowerment
-          </h2>
+          <HomeH2>Hope, Compassion, Transparency &amp; Empowerment</HomeH2>
         </Article>
         <Article direction="column">
           <HomeH1>Services</HomeH1>
           <ServicesUl>
             <li>
-              <UnstyledLink href="/services#trauma-informed">
-                <FontAwesomeIcon icon={faClipboardList} size="4x" />
-                <h2>Trauma Informed Treatment</h2>
-              </UnstyledLink>
-            </li>
-            <li>
               <UnstyledLink href="/services#individual">
-                <FontAwesomeIcon icon={faUser} size="4x" />
+                <ServicesLogo src={logo} alt="Restoring Hope" />
                 <h2>Individual Therapy</h2>
               </UnstyledLink>
             </li>
             <li>
-              <UnstyledLink href="/services#intensive">
-                <FontAwesomeIcon icon={faBrain} size="4x" />
-                <h2>IOP/OP Treatment</h2>
+              <UnstyledLink href="/services#group">
+                <ServicesLogo src={logo} alt="Restoring Hope" />
+                <h2>Group Therapy</h2>
               </UnstyledLink>
             </li>
             <li>
               <UnstyledLink href="/services#group">
-                <FontAwesomeIcon icon={faUsers} size="4x" />
-                <h2>Group Therapy</h2>
+                <ServicesLogo src={logo} alt="Restoring Hope" />
+                <h2>Co-Occurring Disorder Treatment</h2>
+              </UnstyledLink>
+            </li>
+            <li>
+              <UnstyledLink href="/services#trauma-informed">
+                <ServicesLogo src={logo} alt="Restoring Hope" />
+                <h2>Trauma Informed Treatment</h2>
+              </UnstyledLink>
+            </li>
+            <li>
+              <UnstyledLink href="/services#intensive">
+                <ServicesLogo src={logo} alt="Restoring Hope" />
+                <h2>Tele-Health</h2>
               </UnstyledLink>
             </li>
           </ServicesUl>
