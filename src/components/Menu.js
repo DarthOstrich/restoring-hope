@@ -141,8 +141,6 @@ const StyledMenuContent = styled.nav`
 `
 
 const NavMenu = ({ open, fillNavBackground, windowWidth, menuBreakPoint }) => {
-  const pages = ['about', 'contact', 'resources', 'services', 'forms']
-
   return (
     <StaticQuery
       query={graphql`
@@ -158,7 +156,15 @@ const NavMenu = ({ open, fillNavBackground, windowWidth, menuBreakPoint }) => {
         <StyledMenu open={open} fillNavBackground={fillNavBackground}>
           <StyledMenuContent>
             <Link to="/" activeStyle={activeLinkStyle}>
-              <Logo src="/logos/RH-vector-logo-color.png" />
+              <LogoWrapper>
+                <Logo src="/logos/RH-vector-logo-color.png" />
+                {windowWidth > 1100 && (
+                  <img
+                    src="/logos/RH-LogoType-Green.png"
+                    style={{ maxWidth: '200px' }}
+                  />
+                )}
+              </LogoWrapper>
             </Link>
             <ul>
               <li>
