@@ -41,8 +41,7 @@ const StyledBurger = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${({ fillNavBackground, theme }) =>
-      fillNavBackground ? theme.colors.black : theme.colors.white};
+    background: ${({ fillNavBackground, theme }) => (fillNavBackground ? theme.colors.black : theme.colors.white)};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
@@ -65,11 +64,7 @@ const StyledBurger = styled.button`
 
 const Burger = ({ open, setOpen, fillNavBackground }) => {
   return (
-    <StyledBurger
-      open={open}
-      fillNavBackground={fillNavBackground}
-      onClick={() => setOpen(!open)}
-    >
+    <StyledBurger open={open} fillNavBackground={fillNavBackground} onClick={() => setOpen(!open)}>
       <div />
       <div />
       <div />
@@ -90,8 +85,7 @@ const StyledMenu = styled.div`
     z-index: 10;
     transform: translateX(0);
     margin-top: 0;
-    background: ${({ fillNavBackground, theme }) =>
-      fillNavBackground ? theme.colors.secondary : 'rgba(0,0,0,0.25);'};
+    background: ${({ fillNavBackground, theme }) => (fillNavBackground ? theme.colors.secondary : 'rgba(0,0,0,0.25);')};
   }
 `
 
@@ -145,9 +139,7 @@ const NavMenu = ({ open, fillNavBackground, windowWidth, menuBreakPoint }) => {
     <StaticQuery
       query={graphql`
         query headerQuery {
-          contentfulCompanyInfo(
-            contentful_id: { eq: "127ollEi7qxzPVkBWiM0oT" }
-          ) {
+          contentfulCompanyInfo(contentful_id: { eq: "127ollEi7qxzPVkBWiM0oT" }) {
             phone
           }
         }
@@ -158,12 +150,7 @@ const NavMenu = ({ open, fillNavBackground, windowWidth, menuBreakPoint }) => {
             <Link to="/" activeStyle={activeLinkStyle}>
               <LogoWrapper>
                 <Logo src="/logos/RH-vector-logo-color.png" />
-                {windowWidth > 1100 && (
-                  <img
-                    src="/logos/RH-LogoType-Green.png"
-                    style={{ maxWidth: '200px' }}
-                  />
-                )}
+                {windowWidth > 1100 && <img src="/logos/RH-LogoType-Green.png" style={{ maxWidth: '200px' }} />}
               </LogoWrapper>
             </Link>
             <ul>
@@ -198,9 +185,7 @@ const NavMenu = ({ open, fillNavBackground, windowWidth, menuBreakPoint }) => {
                 </Link>
               </li>
               <li>
-                <a href={'tel:' + contentfulCompanyInfo.phone}>
-                  {contentfulCompanyInfo.phone}
-                </a>
+                <a href={'tel:' + contentfulCompanyInfo.phone}>{contentfulCompanyInfo.phone}</a>
               </li>
             </ul>
           </StyledMenuContent>
@@ -220,8 +205,7 @@ const BurgerWrapper = styled.div`
   z-index: 100;
   max-width: ${props => props.theme.sizes.maxWidth};
   transition: background 0.3s ease-in-out;
-  background: ${props =>
-    props.fillNavBackground ? props.theme.colors.secondary : 'transparent'};
+  background: ${props => (props.fillNavBackground ? props.theme.colors.secondary : 'transparent')};
   align-items: center;
   @media (min-width: ${props => props.theme.sizes.menuBreakPointOne}) {
     display: none;
@@ -312,37 +296,24 @@ const Menu = props => {
     setWindowWidth(window.innerWidth)
   }
 
+  useEffect(() => {
+    setWindowWidth(window.innerWidth)
+  })
+
   return (
     <Header>
       {windowWidth < menuBreakPoint && (
-        <BurgerWrapper
-          fillNavBackground={fillNavBackground}
-          setFillNavBackground={setFillNavBackground}
-        >
+        <BurgerWrapper fillNavBackground={fillNavBackground} setFillNavBackground={setFillNavBackground}>
           <Link to="/" activeStyle={activeLinkStyle}>
             <LogoWrapper>
               <Logo src="/logos/RH-vector-logo-color.png" />
-              <img
-                src="/logos/RH-LogoType-Green.png"
-                style={{ maxWidth: '200px' }}
-              />
+              <img src="/logos/RH-LogoType-Green.png" style={{ maxWidth: '200px' }} />
             </LogoWrapper>
           </Link>
-          <Burger
-            open={open}
-            setOpen={setOpen}
-            fillNavBackground={fillNavBackground}
-          />
+          <Burger open={open} setOpen={setOpen} fillNavBackground={fillNavBackground} />
         </BurgerWrapper>
       )}
-      <NavMenu
-        open={open}
-        setOpen={setOpen}
-        fillNavBackground={fillNavBackground}
-        setFillNavBackground={setFillNavBackground}
-        windowWidth={windowWidth}
-        menuBreakPoint={menuBreakPoint}
-      />
+      <NavMenu open={open} setOpen={setOpen} fillNavBackground={fillNavBackground} setFillNavBackground={setFillNavBackground} windowWidth={windowWidth} menuBreakPoint={menuBreakPoint} />
       {children}
     </Header>
   )

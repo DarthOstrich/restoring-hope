@@ -3,12 +3,7 @@ import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import Helmet from 'react-helmet'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faBrain,
-  faUsers,
-  faUser,
-  faClipboardList,
-} from '@fortawesome/free-solid-svg-icons'
+import { faBrain, faUsers, faUser, faClipboardList } from '@fortawesome/free-solid-svg-icons'
 import Layout from '../components/Layout'
 import Menu from '../components/Menu'
 import Button from '../components/Button'
@@ -72,7 +67,7 @@ const CallToAction = styled.aside`
   }
 `
 const HomeH1 = styled.h1`
-  margin: 4rem auto;
+  margin: 0 auto 4rem auto;
   text-align: center;
 `
 const HomeH2 = styled.h2`
@@ -147,17 +142,7 @@ const Index = ({ data, pageContext }) => {
   const postNode = data.contentfulPage
   const { title, slug, heroImage } = data.contentfulPage
   const { edges: groups } = data.allContentfulGroup
-  const {
-    addressCity,
-    addressState,
-    addressStreet,
-    addressZip,
-    officeHours,
-    phone,
-    exteriorPhoto,
-    missionStatementShort,
-    missionStatementLong,
-  } = data.contentfulCompanyInfo
+  const { addressCity, addressState, addressStreet, addressZip, officeHours, phone, exteriorPhoto, missionStatementShort, missionStatementLong } = data.contentfulCompanyInfo
 
   return (
     <Layout>
