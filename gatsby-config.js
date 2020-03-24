@@ -32,6 +32,21 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Montserrat`,
+            variants: [`400`, `700`],
+          },
+          {
+            family: `Josefin Sans`,
+            variants: [`100`, `400`, `700`],
+          },
+        ],
+      },
+    },
+    {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
         siteUrl: config.siteUrl,

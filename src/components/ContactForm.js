@@ -21,8 +21,8 @@ const Form = styled.form`
     font-size: inherit;
     border: none;
     outline: none;
-    background: ${props => props.theme.colors.tertiary};
-    color: ${props => props.theme.colors.base};
+    background: ${props => props.theme.colors.secondary};
+    color: ${props => props.theme.colors.black};
     border-radius: 2px;
     padding: 1em;
     &::-webkit-input-placeholder {
@@ -84,12 +84,12 @@ const Message = styled.textarea`
 `
 
 const Submit = styled.input`
-  background: ${props => props.theme.colors.base} !important;
+  background: ${props => props.theme.colors.highlight} !important;
   color: white !important;
   cursor: pointer;
   transition: 0.2s;
   &:hover {
-    background: ${props => props.theme.colors.highlight} !important;
+    background: ${props => props.theme.colors.highlightDark} !important;
   }
 `
 

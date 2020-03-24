@@ -3,14 +3,14 @@ import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import config from '../utils/siteConfig'
 import Layout from '../components/Layout'
-import Menu from '../components/Menu'
 import Container from '../components/Container'
 import Hero from '../components/Hero'
+import Menu from '../components/Menu'
 // import PageTitle from '../components/PageTitle'
 import PageBody from '../components/PageBody'
 import SEO from '../components/SEO'
 
-const PageTemplateWithInteralContent = ({ data }) => {
+const PageTemplateInteral = ({ data, children, layout }) => {
   const { title, slug, body, heroImage } = data.contentfulPage
   const postNode = data.contentfulPage
   return (
@@ -19,12 +19,11 @@ const PageTemplateWithInteralContent = ({ data }) => {
         <title>{`${title} - ${config.siteTitle}`}</title>
       </Helmet>
       <SEO pagePath={slug} postNode={postNode} pageSEO />
-
       <Menu>
-        <Hero title={title} image={heroImage} height="50vh" />
+        <Hero title={title} image={heroImage} height={'50vh'} />
       </Menu>
-      {/* <Hero title={title} image={heroImage} height={'50vh'} /> */}
-      <Container>{body && <PageBody body={body} />}</Container>
+      {/* <Container>{body && <PageBody body={body} />}</Container> */}
+      <Container layout={layout}>{children}</Container>
     </Layout>
   )
 }
@@ -77,4 +76,4 @@ const PageTemplateWithInteralContent = ({ data }) => {
 //   }
 // `
 //
-export default PageTemplateWithInteralContent
+export default PageTemplateInteral

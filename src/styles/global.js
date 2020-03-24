@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
+import theme from './theme'
+const { responsive, colors, sizes } = theme
 
 const GlobalStyle = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/
@@ -21,43 +23,23 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
+    /* font-size: 100%; */
     /* stylelint-disable-next-line */
     font: inherit;
     vertical-align: baseline;
   }
-
-  /* Added to Fix Footer to bottom of viewport */
-  html, body {
-    height: 100%;
-  }
-  .siteRoot {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  .siteContent {
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 auto;
-  }
-  footer {
-    width: 100%;
-  }
-
-  /* End Fix to Place Footer on Bottom of Viewport */
 
   article, aside, details, figcaption, figure,
   footer, header, hgroup, menu, nav, section {
     display: block;
   }
 
-  @media screen and (min-width: 35em) {
-    html {
-      margin-right: calc(-100vw + 100%);
-      overflow-x: hidden;
-    }
-  }
+  /* @media screen and (min-width: 35em) { */
+  /*   html { */
+  /*     margin-right: calc(-100vw + 100%); */
+  /*     overflow-x: hidden; */
+  /*   } */
+  /* } */
 
   ol, ul, li {
     list-style: none;
@@ -81,16 +63,20 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
-
+	html {
+		font-size: 62.5%;
+	}
   body {
-    background: white;
-    line-height: 1;
-    font-size: 100%;
+		margin: 0;
+    background: ${colors.white};
+		line-height: 1;
+		font-size: 1.6rem;
     font-variant-ligatures: none;
     text-rendering: optimizeLegibility;
     text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
-    font-weight: 400;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		font-weight: 400;
+		font-family: "Montserrat", sans-serif;
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
   }
 
   img {
@@ -115,6 +101,58 @@ const GlobalStyle = createGlobalStyle`
     &:invalid {
       box-shadow: none;
     }
+	}
+	// Typography
+	h1 {
+		font-size: 2.8rem
+		text-transform: uppercase;
+		letter-spacing: 0.1rem;
+	}
+	h1, h2, h3, h4 {
+		font-family: "Josefin Sans", sans-serif;
+		margin-bottom: 1rem;
+	}
+	h2, h3, h4 {
+		font-weight: bold;
+	}
+	h2 {
+		font-size: 2.843rem;
+	}
+	h3 {
+		font-size: 2.133rem
+	}
+	h4 {
+		font-size: 1.6rem;
+	}
+	p {
+		font-size: 1.6rem;
+		margin-bottom: 1rem;
+    line-height: 1.2;
+	}
+	blockquote {
+		margin-bottom: 1rem;
+	}
+	a {
+		font-weight: bold;
+		color: ${colors.highlight}
+    transition: color 0.3s linear;
+		&:hover {
+			color: ${colors.white}
+		}
+	}
+	ol, ul, li {
+		margin-bottom: 1rem;
+	}
+	strong {
+		font-weight: bold;
+	}
+  article ul, article ol {
+    li {
+      list-style: disc;
+      margin-left: 2rem;
+    }
   }
+
+
 `
 export default GlobalStyle

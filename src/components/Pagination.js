@@ -11,14 +11,14 @@ const Wrapper = styled.div`
   max-width: ${props => props.theme.sizes.maxWidth};
   padding: 0 1.5em 2em;
   a {
-    background: ${props => props.theme.colors.base};
+    background: ${props => props.theme.colors.highlight};
     color: white;
     padding: 1em;
     border-radius: 2px;
     text-decoration: none;
     transition: 0.2s;
     &:hover {
-      background: ${props => props.theme.colors.highlight};
+      background: ${props => props.theme.colors.highlightDark};
     }
   }
 `
@@ -52,7 +52,7 @@ class Pagination extends React.Component {
     const isLast = currentPage === numPages
     const isNotPaginated = isFirst & isLast
 
-    const prevPageNum = currentPage - 1 === 1 ? `` : currentPage - 1
+    const prevPageNum = currentPage - 1 === 1 ? `/blog/` : currentPage - 1
     const nextPageNum = currentPage + 1
 
     const pathPrefix = typeof slug === 'string' ? `/tag/${slug}` : ''
