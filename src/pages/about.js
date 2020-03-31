@@ -34,7 +34,13 @@ const ClinicianBio = styled(Article)`
 `
 
 const formatAgeGroup = groups => {
+  if (!groups) {
+    return 'N/A'
+  }
   let list = ''
+  if (groups.length === 1) {
+    return groups[0]
+  }
   groups.map((group, index) => {
     if (index === groups.length - 1) {
       list += `and ${group} `
@@ -58,18 +64,22 @@ const Clinician = ({ clinician }) => {
       <section>
         <h2>{name}</h2>
         <h4>{title}</h4>
-        <p>
-          <strong>Age Groups:</strong> {formatAgeGroup(ageGroup)}
-        </p>
+        {ageGroup && (
+          <p>
+            <strong>Age Groups:</strong> {formatAgeGroup(ageGroup)}
+          </p>
+        )}
       </section>
-      <aside>
-        <h3>Specialties</h3>
-        <ul>
-          {specialties.map(skill => (
-            <li key={skill}>{skill}</li>
-          ))}
-        </ul>
-      </aside>
+      {specialties && (
+        <aside>
+          <h3>Specialties</h3>
+          <ul>
+            {specialties.map(skill => (
+              <li key={skill}>{skill}</li>
+            ))}
+          </ul>
+        </aside>
+      )}
     </ClinicianBio>
   )
 }
@@ -93,11 +103,7 @@ const About = ({ data }) => {
   const { heroImage } = data.contentfulPage
 
   const companyInfo = data.contentfulCompanyInfo
-  const {
-    missionStatementLong,
-    missionStatementShort,
-    companyHistory,
-  } = companyInfo
+  const { missionStatementLong, missionStatementShort, companyHistory } = companyInfo
 
   return (
     <PageTemplateInternal data={data} layout={'headersLeft'}>
