@@ -85,7 +85,7 @@ const ServicesUl = styled.ul`
   li {
     display: flex;
     align-items: center;
-    margin: 0;
+    /* margin: 0; */
   }
   svg {
     color: ${props => props.theme.colors.highlight};
@@ -176,6 +176,12 @@ const Index = ({ data, pageContext }) => {
           <HomeH1>Services</HomeH1>
           <ServicesUl>
             <li>
+              <UnstyledLink href="/services#intensive">
+                <ServicesLogo src={logo} alt="Restoring Hope" />
+                <h2>Online Counseling</h2>
+              </UnstyledLink>
+            </li>
+            <li>
               <UnstyledLink href="/services#individual">
                 <ServicesLogo src={logo} alt="Restoring Hope" />
                 <h2>Individual Therapy</h2>
@@ -188,21 +194,9 @@ const Index = ({ data, pageContext }) => {
               </UnstyledLink>
             </li>
             <li>
-              <UnstyledLink href="/services#group">
-                <ServicesLogo src={logo} alt="Restoring Hope" />
-                <h2>Co-Occurring Disorder Treatment</h2>
-              </UnstyledLink>
-            </li>
-            <li>
               <UnstyledLink href="/services#trauma-informed">
                 <ServicesLogo src={logo} alt="Restoring Hope" />
                 <h2>Trauma Informed Treatment</h2>
-              </UnstyledLink>
-            </li>
-            <li>
-              <UnstyledLink href="/services#intensive">
-                <ServicesLogo src={logo} alt="Restoring Hope" />
-                <h2>Tele-Health</h2>
               </UnstyledLink>
             </li>
           </ServicesUl>
