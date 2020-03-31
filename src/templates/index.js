@@ -182,6 +182,12 @@ const Index = ({ data, pageContext }) => {
               </UnstyledLink>
             </li>
             <li>
+              <UnstyledLink href="/services#trauma-informed">
+                <ServicesLogo src={logo} alt="Restoring Hope" />
+                <h2>Trauma Informed Treatment</h2>
+              </UnstyledLink>
+            </li>
+            <li>
               <UnstyledLink href="/services#individual">
                 <ServicesLogo src={logo} alt="Restoring Hope" />
                 <h2>Individual Therapy</h2>
@@ -191,12 +197,6 @@ const Index = ({ data, pageContext }) => {
               <UnstyledLink href="/services#group">
                 <ServicesLogo src={logo} alt="Restoring Hope" />
                 <h2>Group Therapy</h2>
-              </UnstyledLink>
-            </li>
-            <li>
-              <UnstyledLink href="/services#trauma-informed">
-                <ServicesLogo src={logo} alt="Restoring Hope" />
-                <h2>Trauma Informed Treatment</h2>
               </UnstyledLink>
             </li>
           </ServicesUl>
