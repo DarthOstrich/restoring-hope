@@ -30,7 +30,7 @@
     "gatsby-remark-prismjs": "^3.3.24",
     "gatsby-source-contentful": "^2.1.63",
     "gatsby-source-filesystem": "^2.1.38",
-    "gatsby-transformer-remark": "^2.6.37",
+    "gatsby-transformer-remark": "^5.25.1",
     "global": "^4.4.0",
     "inquirer": "^6.5.2",
     "lodash": "^4.17.15",
